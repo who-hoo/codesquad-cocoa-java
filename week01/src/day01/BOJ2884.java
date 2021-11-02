@@ -3,6 +3,35 @@ package day01;
 import java.util.Scanner;
 
 public class BOJ2884 {
+    static final int TARGET_MINUTES = 45;
+
+    public static String setAlarm(int hh, int mm) {
+        int aHour = hh;
+        int aMinute = subMinute(mm);
+
+        if (isBeforeTargetMinute(mm)) {
+            aMinute += 60;
+            aHour = subHour(hh);
+        }
+        return aHour + " " + aMinute;
+    }
+
+    public static int subMinute(int mm) {
+        return mm - TARGET_MINUTES;
+    }
+
+    public static int subHour(int hh) {
+        return isMidnight(hh) ? 23 : hh - 1;
+    }
+
+    public static boolean isBeforeTargetMinute(int mm) {
+        return mm < TARGET_MINUTES;
+    }
+
+    public static boolean isMidnight(int hh) {
+        return hh == 0;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -10,12 +39,7 @@ public class BOJ2884 {
         int mm = sc.nextInt();
         sc.close();
 
-        mm = mm - 45;
-        if (mm < 0) {
-            mm = mm + 60;
-            if (--hh < 0) hh = 23;
-        }
-        String result = hh + " " + mm;
+        String result = setAlarm(hh, mm);
         System.out.println(result);
     }
 }
