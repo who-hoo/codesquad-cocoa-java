@@ -48,7 +48,7 @@ class GugudanTest {
             if (from < to) break;
             System.out.println("시작 단보다 큰 값을 입력해주세요.");
         }
-
+        sc.close();
         Gugudan gugu = new Gugudan(from, to);
         gugu.printAll();
     }
