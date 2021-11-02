@@ -11,8 +11,12 @@ public class BOJ1330 {
         sc.close();
 
         String result = "==";
-        if (a > b) result = ">";
-        else if (a < b) result = "<";
+
+        if (a > b) {
+            result = ">";
+        } else if (a < b) {
+            result = "<";
+        }
 
         System.out.println(result);
     }

@@ -10,10 +10,15 @@ public class BOJ9498 {
         sc.close();
 
         char result = 'F';
-        if (90 <= score && score <= 100) result = 'A';
-        else if (80 <= score) result = 'B';
-        else if (70 <= score) result = 'C';
-        else if (60 <= score) result = 'D';
+        if (90 <= score) {
+            result = 'A';
+        } else if (80 <= score) {
+            result = 'B';
+        } else if (70 <= score) {
+            result = 'C';
+        } else if (60 <= score) {
+            result = 'D';
+        }
 
         System.out.println(result);
     }
