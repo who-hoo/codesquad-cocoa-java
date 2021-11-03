@@ -38,6 +38,7 @@ class RandomGacha {
 
     RandomGacha() {
         this.members = CocoaMember.makeSquad1();
+        shuffleMember();
     }
 
     void insertCoin(int coins) {
@@ -45,8 +46,14 @@ class RandomGacha {
     }
 
     void shuffleMember() {
-        // TODO: 랜덤뽑기를 위한 멤버 배열 섞기 구현
         // 배열을 섞는게 효율적일까, draw() 내에서 중복없는 난수를 발생시키는게 효율적일까?
+        CocoaMember temp = null;
+        for (int i = 0; i < members.length; i++) {
+            int j = (int) (Math.random() * members.length);
+            temp = members[i];
+            members[i] = members[j];
+            members[j] = temp;
+        }
     }
 
     void draw() {
@@ -80,7 +87,6 @@ class RandomGachaTest {
         sc.close();
 
         gacha.insertCoin(coins);
-        gacha.shuffleMember();
         gacha.draw();
     }
 }
