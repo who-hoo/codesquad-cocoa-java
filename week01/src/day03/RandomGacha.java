@@ -3,6 +3,7 @@ package day03;
 import java.util.Scanner;
 
 class CocoaMember {
+
     private String name;
 
     CocoaMember(String name) {
@@ -15,17 +16,17 @@ class CocoaMember {
 
     static CocoaMember[] makeSquad1() {
         CocoaMember[] squad1 = {
-                new CocoaMember("Donggi"),
-                new CocoaMember("K"),
-                new CocoaMember("Tany"),
-                new CocoaMember("Taksu"),
-                new CocoaMember("Hoo"),
-                new CocoaMember("Jerry"),
-                new CocoaMember("Nohri"),
-                new CocoaMember("MK"),
-                new CocoaMember("ttasjwi"),
-                new CocoaMember("PO"),
-                new CocoaMember("Mandoo")
+            new CocoaMember("Donggi"),
+            new CocoaMember("K"),
+            new CocoaMember("Tany"),
+            new CocoaMember("Taksu"),
+            new CocoaMember("Hoo"),
+            new CocoaMember("Jerry"),
+            new CocoaMember("Nohri"),
+            new CocoaMember("MK"),
+            new CocoaMember("ttasjwi"),
+            new CocoaMember("PO"),
+            new CocoaMember("Mandoo")
         };
 
         return squad1;
@@ -33,6 +34,7 @@ class CocoaMember {
 }
 
 class RandomGacha {
+
     private int coin = 0;
     CocoaMember[] members;
 
@@ -78,6 +80,7 @@ class RandomGacha {
 }
 
 class RandomGachaTest {
+
     public static void main(String[] args) {
         RandomGacha gacha = new RandomGacha();
 
