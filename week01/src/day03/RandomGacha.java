@@ -1,5 +1,6 @@
 package day03;
 
+import java.util.Random;
 import java.util.Scanner;
 
 class CocoaMember {
@@ -15,7 +16,7 @@ class CocoaMember {
     }
 
     static CocoaMember[] makeSquad1() {
-        CocoaMember[] squad1 = {
+        return new CocoaMember[]{
             new CocoaMember("Donggi"),
             new CocoaMember("K"),
             new CocoaMember("Tany"),
@@ -28,8 +29,6 @@ class CocoaMember {
             new CocoaMember("PO"),
             new CocoaMember("Mandoo")
         };
-
-        return squad1;
     }
 }
 
@@ -55,7 +54,6 @@ class RandomGacha {
                     break;
                 }
             } catch (Exception e) {
-
             }
             System.out.println("양의 정수로 입력하시죠");
         }
@@ -67,10 +65,9 @@ class RandomGacha {
     }
 
     void shuffleMember() {
-        // 배열을 섞는게 효율적일까, draw() 내에서 중복없는 난수를 발생시키는게 효율적일까?
         CocoaMember temp = null;
         for (int i = 0; i < members.length; i++) {
-            int j = (int) (Math.random() * members.length);
+            int j = new Random().nextInt(members.length);
             temp = members[i];
             members[i] = members[j];
             members[j] = temp;
@@ -78,11 +75,11 @@ class RandomGacha {
     }
 
     void draw() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         int i = 0;
         while (coin > 0 && i < members.length) {
-            result += (members[i].getName() + ", ");
+            result.append(members[i].getName() + ", ");
             i++;
             coin--;
         }
