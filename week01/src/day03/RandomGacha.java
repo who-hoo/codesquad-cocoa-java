@@ -43,6 +43,15 @@ class RandomGacha {
         shuffleMember();
     }
 
+    int getUserCoin() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("insert coin >>>>> ");
+        int coins = sc.nextInt();
+        sc.close();
+
+        return coins;
+    }
+
     void insertCoin(int coins) {
         this.coin += coins;
     }
@@ -84,11 +93,7 @@ class RandomGachaTest {
     public static void main(String[] args) {
         RandomGacha gacha = new RandomGacha();
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("insert coin >>>>> ");
-        int coins = sc.nextInt();
-        sc.close();
-
+        int coins = gacha.getUserCoin();
         gacha.insertCoin(coins);
         gacha.draw();
     }
