@@ -45,10 +45,20 @@ class RandomGacha {
 
     int getUserCoin() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("insert coin >>>>> ");
-        int coins = sc.nextInt();
-        sc.close();
+        int coins = 0;
+        while (true) {
+            System.out.print("insert coin >>>>> ");
+            try {
+                coins = Integer.parseInt(sc.nextLine());
+                if (coins > 0) {
+                    sc.close();
+                    break;
+                }
+            } catch (Exception e) {
 
+            }
+            System.out.println("양의 정수로 입력하시죠");
+        }
         return coins;
     }
 
