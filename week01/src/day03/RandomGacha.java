@@ -70,9 +70,8 @@ public class RandomGacha {
 
     void returnCoin() {
         System.out.println("남은 동전을 반환합니다...");
-        while (coin > 0) {
+        for (; coin > 0; coin--) {
             System.out.print("\uD83D\uDFE1 ");
-            coin--;
         }
         System.out.println("...끝!");
     }
@@ -82,6 +81,6 @@ public class RandomGacha {
 
         gacha.getUserCoin();
         gacha.pick();
-//        gacha.returnCoin();
+        gacha.returnCoin();
     }
 }
