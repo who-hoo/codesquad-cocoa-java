@@ -1,7 +1,6 @@
 package day03;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class RandomGacha {
 
