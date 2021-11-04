@@ -59,18 +59,13 @@ public class RandomGacha {
         StringBuilder result = new StringBuilder();
         Stream<CocoaMember> memberStream = members.stream();
 
-        memberStream.forEach(member -> System.out.println(member.getName()));
+        // TODO: coin 감소시키는거 stream에서 분리
+        memberStream
+            .limit(coin)
+            .peek(member -> coin--)
+            .forEach(member -> result.append(member.getName() + ", "));
 
-        /*
-        int i = 0;
-        while (coin > 0 && i < members.length) {
-            result.append(members[i].getName() + ", ");
-            i++;
-            coin--;
-        }
-
-        System.out.println(result);
-         */
+        System.out.println(result.substring(0, result.length() - 2));
     }
 
     void returnCoin() {
@@ -86,7 +81,7 @@ public class RandomGacha {
         RandomGacha gacha = new RandomGacha();
 
         gacha.getUserCoin();
-//        gacha.pick();
+        gacha.pick();
 //        gacha.returnCoin();
     }
 }
