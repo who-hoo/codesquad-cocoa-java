@@ -1,11 +1,12 @@
 package day03;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class RandomGacha {
 
     private int coin = 0;
-    CocoaMember[] members;
+    List<CocoaMember> members;
 
     RandomGacha() {
         this.members = CocoaMember.makeSquad1();
@@ -35,18 +36,16 @@ public class RandomGacha {
     }
 
     void shuffleMember() {
-        CocoaMember temp = null;
-        for (int i = 0; i < members.length; i++) {
-            int j = new Random().nextInt(members.length);
-            temp = members[i];
-            members[i] = members[j];
-            members[j] = temp;
-        }
+        Collections.shuffle(members);
     }
 
     void draw() {
         StringBuilder result = new StringBuilder();
+        Stream<CocoaMember> memberStream = members.stream();
 
+        memberStream.forEach(member -> System.out.println(member.getName()));
+
+        /*
         int i = 0;
         while (coin > 0 && i < members.length) {
             result.append(members[i].getName() + ", ");
@@ -55,6 +54,7 @@ public class RandomGacha {
         }
 
         System.out.println(result);
+         */
     }
 
     void returnCoin() {
@@ -69,9 +69,9 @@ public class RandomGacha {
     public static void main(String[] args) {
         RandomGacha gacha = new RandomGacha();
 
-        int coins = gacha.getUserCoin();
-        gacha.insertCoin(coins);
+//        int coins = gacha.getUserCoin();
+//        gacha.insertCoin(coins);
         gacha.draw();
-        gacha.returnCoin();
+//        gacha.returnCoin();
     }
 }
