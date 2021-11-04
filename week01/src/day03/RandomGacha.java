@@ -5,30 +5,46 @@ import java.util.stream.Stream;
 
 public class RandomGacha {
 
+    final static int MIN_COIN = 1;
+
+    Scanner coinSlot;
     private int coin = 0;
     List<CocoaMember> members;
 
     RandomGacha() {
+        coinSlot = new Scanner(System.in);
         this.members = CocoaMember.makeSquad1();
         shuffleMember();
     }
 
-    int getUserCoin() {
-        Scanner sc = new Scanner(System.in);
-        int coins = 0;
-        while (true) {
-            System.out.print("insert coin >>>>> ");
-            try {
-                coins = Integer.parseInt(sc.nextLine());
-                if (coins > 0) {
-                    sc.close();
-                    break;
-                }
-            } catch (Exception e) {
+    boolean isValidInput(String input) {
+        try {
+            if (Integer.parseInt(input) < MIN_COIN) {
+                throw new InputMismatchException();
             }
-            System.out.println("양의 정수로 입력하시죠");
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("숫자로 입력");
+            return false;
+        } catch (InputMismatchException e) {
+            System.out.println("0보다 큰 숫자로 입력");
+            return false;
         }
-        return coins;
+    }
+
+    void getUserCoin() {
+        String input = "";
+
+        System.out.print("insert coin >>>>> ");
+        input = coinSlot.nextLine();
+
+        if (isValidInput(input)) {
+            int coins = Integer.parseInt(input);
+            insertCoin(coins);
+            return;
+        }
+
+        getUserCoin();
     }
 
     void insertCoin(int coins) {
@@ -69,9 +85,8 @@ public class RandomGacha {
     public static void main(String[] args) {
         RandomGacha gacha = new RandomGacha();
 
-//        int coins = gacha.getUserCoin();
-//        gacha.insertCoin(coins);
-        gacha.pick();
+        gacha.getUserCoin();
+//        gacha.pick();
 //        gacha.returnCoin();
     }
 }
