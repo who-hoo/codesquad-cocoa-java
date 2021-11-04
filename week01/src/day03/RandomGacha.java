@@ -57,14 +57,12 @@ public class RandomGacha {
 
     void pick() {
         StringBuilder result = new StringBuilder();
-        Stream<CocoaMember> memberStream = members.stream();
 
-        // TODO: coin 감소시키는거 stream에서 분리
-        memberStream
-            .limit(coin)
-            .peek(member -> coin--)
-            .forEach(member -> result.append(member.getName() + ", "));
-
+        List<CocoaMember> subMembers = members.subList(0, Math.min(coin, members.size()));
+        for (CocoaMember member: subMembers) {
+            result.append(member.getName() + ", ");
+            coin--;
+        }
         System.out.println(result.substring(0, result.length() - 2));
     }
 
