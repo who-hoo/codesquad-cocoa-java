@@ -1,38 +1,8 @@
 package day03;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
-class CocoaMember {
-
-    private String name;
-
-    CocoaMember(String name) {
-        this.name = name;
-    }
-
-    String getName() {
-        return name;
-    }
-
-    static CocoaMember[] makeSquad1() {
-        return new CocoaMember[]{
-            new CocoaMember("Donggi"),
-            new CocoaMember("K"),
-            new CocoaMember("Tany"),
-            new CocoaMember("Taksu"),
-            new CocoaMember("Hoo"),
-            new CocoaMember("Jerry"),
-            new CocoaMember("Nohri"),
-            new CocoaMember("MK"),
-            new CocoaMember("ttasjwi"),
-            new CocoaMember("PO"),
-            new CocoaMember("Mandoo")
-        };
-    }
-}
-
-class RandomGacha {
+public class RandomGacha {
 
     private int coin = 0;
     CocoaMember[] members;
@@ -95,9 +65,6 @@ class RandomGacha {
         }
         System.out.println("...끝!");
     }
-}
-
-class RandomGachaTest {
 
     public static void main(String[] args) {
         RandomGacha gacha = new RandomGacha();
