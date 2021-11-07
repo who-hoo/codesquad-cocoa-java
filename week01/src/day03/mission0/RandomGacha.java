@@ -1,4 +1,4 @@
-package day03;
+package day03.mission0;
 
 import java.util.*;
 
