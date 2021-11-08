@@ -51,8 +51,16 @@ public class AccountBook {
     }
 
     void createContent() {
-        // TODO: 데이터 생성 구현
-        System.out.println("create");
+        System.out.print("날짜(yyyymmdd) >>>>> ");
+        String date = input.nextLine();
+        System.out.print("적요 >>>>> ");
+        String summary = input.nextLine();
+        System.out.print("수입 >>>>> ");
+        int income = Integer.parseInt(input.nextLine());
+        System.out.print("지출 >>>>> ");
+        int expense = Integer.parseInt(input.nextLine());
+
+        contents.add(new AccountData(date, summary, income, expense));
     }
 
     void deleteContent(int no) {
