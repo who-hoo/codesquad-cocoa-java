@@ -41,7 +41,8 @@ public class AccountBook {
                     updateContent(Integer.parseInt(input.nextLine()));
                     break;
                 case "4":
-                    printContents();
+                    System.out.print("출력할 대상 월을 입력해주세요(0: 전체) >>>>> ");
+                    printContents(Integer.parseInt(input.nextLine()));
                     break;
                 case "0":
                     flag = false;
@@ -112,7 +113,9 @@ public class AccountBook {
             , result.no, result.date, result.summary, result.income, result.expense);
     }
 
-    void printContents() {
+    void printContents(int month) {
+        System.out.println("========== " + (month == 0 ? "전체" : month) + " 월의 지출내역 출력 ==========");
+        // TODO: 해당 월의 지출내역만 출력하도록 수정(필터 기능 추가)
         System.out.printf("[순번] 날짜 적요 수입 지출 잔액 %n");
         if (!contents.isEmpty()) {
             for (AccountData content : contents) {
