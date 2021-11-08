@@ -10,8 +10,8 @@ public class AccountData {
     int income;
     int expense;
 
-    AccountData(String date, String summary, int income, int expense) {
-        generateNo++;
+    AccountData(int no, String date, String summary, int income, int expense) {
+        this.no = no;
         this.no = AccountData.generateNo;
         this.date = date;
         this.summary = summary;

@@ -6,6 +6,7 @@ public class AccountBook {
 
     Input input = new Input();
     User user;
+    int generateNo = 0;
     ArrayList<AccountData> contents;
     boolean isRunning = true;
 
@@ -53,7 +54,7 @@ public class AccountBook {
         int income = input.getInteger("수입 >>>>> ");
         int expense = input.getInteger("지출 >>>>> ");
 
-        contents.add(new AccountData(date, summary, income, expense));
+        contents.add(new AccountData(generateNo++, date, summary, income, expense));
     }
 
     AccountData findOne(int no) {
