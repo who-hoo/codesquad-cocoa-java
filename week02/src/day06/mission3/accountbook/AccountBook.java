@@ -34,11 +34,11 @@ public class AccountBook {
                     break;
                 case "2":
                     System.out.print("삭제할 데이터의 순번을 입력해주세요 >>>>> ");
-                    deleteContent(input.nextInt());
+                    deleteContent(Integer.parseInt(input.nextLine()));
                     break;
                 case "3":
                     System.out.print("수정할 데이터의 순번을 입력해주세요 >>>>> ");
-                    updateContent(input.nextInt());
+                    updateContent(Integer.parseInt(input.nextLine()));
                     break;
                 case "4":
                     printContents();
@@ -83,16 +83,41 @@ public class AccountBook {
     }
 
     void updateContent(int no) {
-        // TODO: 데이터 수정 구현
-        System.out.println("update" + no);
+        AccountData target = findOne(no);
+        if (target == null) {
+            System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
+            return;
+        }
+        int targetIndex = contents.indexOf(target);
+
+        System.out.print("날짜(yyyymmdd) >>>>> ");
+        String date = input.nextLine();
+        target.date = date;
+
+        System.out.print("적요 >>>>> ");
+        String summary = input.nextLine();
+        target.summary = summary;
+
+        System.out.print("수입 >>>>> ");
+        int income = Integer.parseInt(input.nextLine());
+        target.income = income;
+
+        System.out.print("지출 >>>>> ");
+        int expense = Integer.parseInt(input.nextLine());
+        target.expense = expense;
+
+        AccountData result = contents.set(targetIndex, target);
+        System.out.printf("[순번] 날짜 적요 수입 지출 %n");
+        System.out.printf("[%d] %s %s %d %d %n"
+            , result.no, result.date, result.summary, result.income, result.expense);
     }
 
     void printContents() {
-        System.out.printf("[순번] 적요 수입 지출 잔액 %n");
+        System.out.printf("[순번] 날짜 적요 수입 지출 잔액 %n");
         if (!contents.isEmpty()) {
             for (AccountData content : contents) {
-                System.out.printf("[%d] %s %d %d %d %n"
-                    , content.no, content.summary, content.income, content.expense,
+                System.out.printf("[%d] %s %s %d %d %d %n"
+                    , content.no, content.date, content.summary, content.income, content.expense,
                     AccountData.balance);
             }
         }
