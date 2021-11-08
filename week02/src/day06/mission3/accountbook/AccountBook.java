@@ -16,6 +16,7 @@ public class AccountBook {
     }
 
     void run() {
+        isRunning = true;
         while (isRunning) {
             String action = getAction();
             execAction(action);
