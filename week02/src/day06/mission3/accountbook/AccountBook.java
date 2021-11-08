@@ -79,7 +79,7 @@ public class AccountBook {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
             return;
         }
-        String result = contents.remove(target) ? "success" : "fail";
+        String result = contents.remove(target) ? "delete success" : "delete fail";
         System.out.println(result);
     }
 
@@ -108,8 +108,7 @@ public class AccountBook {
         target.expense = expense;
 
         AccountData result = contents.set(targetIndex, target);
-        System.out.printf("[순번] 날짜 적요 수입 지출 %n");
-        System.out.printf("[%d] %s %s %d %d %n"
+        System.out.printf("update success : [%d] %s %s %d %d %n"
             , result.no, result.date, result.summary, result.income, result.expense);
     }
 
