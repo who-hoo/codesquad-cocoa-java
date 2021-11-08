@@ -20,4 +20,12 @@ public class AccountData {
         this.income = income;
         this.expense = expense;
     }
+
+    static void subBalance(int income, int expense) {
+        AccountData.balance -= (income - expense);
+    }
+
+    static void addBalance(int income, int expense) {
+        AccountData.balance += (income - expense);
+    }
 }

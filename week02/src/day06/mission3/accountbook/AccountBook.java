@@ -82,7 +82,7 @@ public class AccountBook {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
             return;
         }
-        AccountData.balance -= (target.income - target.expense);
+        AccountData.subBalance(target.income, target.expense);
         String result = contents.remove(target) ? "delete success" : "delete fail";
         System.out.println(result);
     }
@@ -93,7 +93,7 @@ public class AccountBook {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
             return;
         }
-        AccountData.balance -= (target.income - target.expense);
+        AccountData.subBalance(target.income, target.expense);
 
         int targetIndex = contents.indexOf(target);
         target.date = input.getYYYYMMDD();
@@ -101,7 +101,7 @@ public class AccountBook {
         target.income = input.getInteger("수입 >>>>> ");
         target.expense = input.getInteger("지출 >>>>> ");
         AccountData result = contents.set(targetIndex, target);
-        AccountData.balance += (target.income - target.expense);
+        AccountData.addBalance(target.income, target.expense);
         System.out.printf("update success : [%d] %s %s %d %d %n"
             , result.no, result.date, result.summary, result.income, result.expense);
     }
@@ -124,7 +124,7 @@ public class AccountBook {
             .forEach(content -> System.out.printf("[%d] %s %s %d %d %n"
                 , content.no, content.date, content.summary, content.income, content.expense));
         System.out.println("=======================================");
-        System.out.println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + AccountData.balance);
+        System.out.println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + AccountData.balance + "원");
     }
 
     public static void main(String[] args) {
