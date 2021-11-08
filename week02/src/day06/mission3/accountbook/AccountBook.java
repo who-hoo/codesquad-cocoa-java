@@ -115,24 +115,18 @@ public class AccountBook {
 
     void printContents(int month) {
         System.out.println("========== " + (month == 0 ? "전체" : month) + " 월의 지출내역 출력 ==========");
-        // TODO: 해당 월의 지출내역만 출력하도록 수정(필터 기능 추가)
         System.out.printf("[순번] 날짜 적요 수입 지출 잔액 %n");
-        if (!contents.isEmpty()) {
-            for (AccountData content : contents) {
-                System.out.printf("[%d] %s %s %d %d %d %n"
-                    , content.no, content.date, content.summary, content.income, content.expense,
-                    AccountData.balance);
-            }
-        }
+        contents.stream()
+            .filter(
+                content -> Integer.parseInt(content.date.substring(4, 6)) == (month == 0 ?
+                    Integer.parseInt(content.date.substring(4, 6)) : month))
+            .forEach(content -> System.out.printf("[%d] %s %s %d %d %d %n"
+                , content.no, content.date, content.summary, content.income, content.expense,
+                AccountData.balance));
     }
 
     public static void main(String[] args) {
         AccountBook ab = new AccountBook();
-        // create data for test
-        ab.contents.add(new AccountData("20211108", "test1", 100, 0));
-        ab.contents.add(new AccountData("20211108", "test2", 200, 0));
-        ab.contents.add(new AccountData("20211108", "test3", 0, 100));
-
         ab.askUserAction();
         input.close();
     }
