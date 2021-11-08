@@ -1,66 +1,66 @@
 package day06.mission3.accountbook;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AccountBook {
 
-    static Scanner input = new Scanner(System.in);
-
+    Input input = new Input();
     User user;
     ArrayList<AccountData> contents;
+    boolean isRunning = true;
 
     AccountBook() {
         this.user = userRegister();
         this.contents = new ArrayList<>(30);
+        this.contents.add(new AccountData("20211108", "test1", 100, 0));
+        this.contents.add(new AccountData("20211108", "test2", 200, 0));
+        this.contents.add(new AccountData("20211108", "test3", 0, 100));
     }
 
     User userRegister() {
-        System.out.print("input your id >>>>> ");
-        String userName = input.nextLine();
-        System.out.print("input your password >>>>> ");
-        String userPassword = input.nextLine();
+        String userName = input.getString("input your id >>>>> ");
+        String userPassword = input.getString("input your password >>>>> ");
 
         return new User(userName, userPassword);
     }
 
     void run() {
-        boolean isRunning = true;
         while (isRunning) {
-            System.out.print("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
-            switch (input.nextLine()) {
-                case "1":
-                    createContent();
-                    break;
-                case "2":
-                    System.out.print("삭제할 데이터의 순번을 입력해주세요 >>>>> ");
-                    deleteContent(Integer.parseInt(input.nextLine()));
-                    break;
-                case "3":
-                    System.out.print("수정할 데이터의 순번을 입력해주세요 >>>>> ");
-                    updateContent(Integer.parseInt(input.nextLine()));
-                    break;
-                case "4":
-                    System.out.print("출력할 대상 월을 입력해주세요(0: 전체) >>>>> ");
-                    printContents(Integer.parseInt(input.nextLine()));
-                    break;
-                case "0":
-                    isRunning = false;
-                    input.close();
-                    break;
-            }
+            String action = getAction();
+            execAction(action);
+        }
+    }
+
+    String getAction() {
+        return input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
+    }
+
+    void execAction(String action) {
+        switch (action) {
+            case "1":
+                createContent();
+                break;
+            case "2":
+                deleteContent(input.getInteger("삭제할 데이터의 순번을 입력해주세요 >>>>> "));
+                break;
+            case "3":
+                updateContent(input.getInteger("수정할 데이터의 순번을 입력해주세요 >>>>> "));
+                break;
+            case "4":
+                printContents(input.getInteger("출력할 대상 월을 입력해주세요(0: 전체) >>>>> "));
+                break;
+            case "0":
+                isRunning = false;
+                input.close();
+                break;
         }
     }
 
     void createContent() {
-        System.out.print("날짜(yyyymmdd) >>>>> ");
-        String date = input.nextLine();
-        System.out.print("적요 >>>>> ");
-        String summary = input.nextLine();
-        System.out.print("수입 >>>>> ");
-        int income = Integer.parseInt(input.nextLine());
-        System.out.print("지출 >>>>> ");
-        int expense = Integer.parseInt(input.nextLine());
+        String date = input.getYYYYMMDD();
+        String summary = input.getString("적요 >>>>> ");
+        int income = input.getInteger("수입 >>>>> ");
+        int expense = input.getInteger("지출 >>>>> ");
 
         contents.add(new AccountData(date, summary, income, expense));
     }
@@ -92,20 +92,16 @@ public class AccountBook {
         }
         int targetIndex = contents.indexOf(target);
 
-        System.out.print("날짜(yyyymmdd) >>>>> ");
-        String date = input.nextLine();
+        String date = input.getYYYYMMDD();
         target.date = date;
 
-        System.out.print("적요 >>>>> ");
-        String summary = input.nextLine();
+        String summary = input.getString("적요 >>>>> ");
         target.summary = summary;
 
-        System.out.print("수입 >>>>> ");
-        int income = Integer.parseInt(input.nextLine());
+        int income = input.getInteger("수입 >>>>> ");
         target.income = income;
 
-        System.out.print("지출 >>>>> ");
-        int expense = Integer.parseInt(input.nextLine());
+        int expense = input.getInteger("지출 >>>>> ");
         target.expense = expense;
 
         AccountData result = contents.set(targetIndex, target);
