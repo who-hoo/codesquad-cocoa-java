@@ -39,7 +39,7 @@ public class Main {
     }
 
     void userRegister() {
-        String userName = input.getString("input your id >>>>> ");
+        String userName = input.getString("input your name >>>>> ");
         String userPassword = input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
         String result = users.add(user) && books.add(new AccountBook(user))
@@ -47,14 +47,30 @@ public class Main {
         System.out.println(result);
     }
 
+    boolean checkId(String userName) {
+        boolean isValid = users.stream()
+            .anyMatch(user -> user.getName().equals(userName));
+        if (!isValid) {
+            System.out.println("존재하지 않는 사용자입니다.");
+        }
+        return isValid;
+    }
+
+    boolean checkPassword(String userName, String userPassword) {
+        boolean isValid = users.stream()
+            .anyMatch(
+                user -> user.getName().equals(userName) && user.getPassword().equals(userPassword));
+        if (!isValid) {
+            System.out.println("비밀번호가 일치하지 않습니다.");
+        }
+        return isValid;
+    }
+
     void signIn() {
-        String userName = input.getString("input your id >>>>> ");
+        String userName = input.getString("input your name >>>>> ");
         String userPassword = input.getString("input your password >>>>> ");
 
-        boolean signInSuccess = users.stream()
-            .anyMatch(
-                user -> user.getName().equals(userName) && user.getName().equals(userPassword));
-        if (signInSuccess) {
+        if (checkId(userName) && checkPassword(userName, userPassword)) {
             books.stream()
                 .filter(book -> book.user.getName().equals(userName))
                 .forEach(AccountBook::run);
