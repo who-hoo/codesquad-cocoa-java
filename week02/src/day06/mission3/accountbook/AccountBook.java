@@ -9,19 +9,12 @@ public class AccountBook {
     ArrayList<AccountData> contents;
     boolean isRunning = true;
 
-    AccountBook() {
-        this.user = userRegister();
+    AccountBook(User user) {
+        this.user = user;
         this.contents = new ArrayList<>(30);
         this.contents.add(new AccountData("20211108", "test1", 100, 0));
         this.contents.add(new AccountData("20211108", "test2", 200, 0));
         this.contents.add(new AccountData("20211108", "test3", 0, 100));
-    }
-
-    User userRegister() {
-        String userName = input.getString("input your id >>>>> ");
-        String userPassword = input.getString("input your password >>>>> ");
-
-        return new User(userName, userPassword);
     }
 
     void run() {
@@ -51,7 +44,6 @@ public class AccountBook {
                 break;
             case "0":
                 isRunning = false;
-                input.close();
                 break;
             default:
                 break;
@@ -125,9 +117,5 @@ public class AccountBook {
                 , content.no, content.date, content.summary, content.income, content.expense));
         System.out.println("=======================================");
         System.out.println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + AccountData.balance + "원");
-    }
-
-    public static void main(String[] args) {
-        new AccountBook().run();
     }
 }

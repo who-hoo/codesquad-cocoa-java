@@ -10,6 +10,19 @@ public class User {
         this.password = password;
     }
 
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User temp = (User) obj;
+            return name.equals(temp.name);
+        }
+
+        return false;
+    }
+
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     public String getName() {
         return name;
     }
