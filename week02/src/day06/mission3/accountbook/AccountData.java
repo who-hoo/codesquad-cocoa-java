@@ -3,7 +3,6 @@ package day06.mission3.accountbook;
 public class AccountData {
 
     static int generateNo = 0;
-    static int balance = 0;
 
     int no;
     String date;
@@ -13,19 +12,10 @@ public class AccountData {
 
     AccountData(String date, String summary, int income, int expense) {
         generateNo++;
-        AccountData.balance += (income - expense);
         this.no = AccountData.generateNo;
         this.date = date;
         this.summary = summary;
         this.income = income;
         this.expense = expense;
-    }
-
-    static void subBalance(int income, int expense) {
-        AccountData.balance -= (income - expense);
-    }
-
-    static void addBalance(int income, int expense) {
-        AccountData.balance += (income - expense);
     }
 }
