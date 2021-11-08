@@ -24,9 +24,9 @@ public class AccountBook {
         return new User(userName, userPassword);
     }
 
-    void askUserAction() {
-        boolean flag = true;
-        while (flag) {
+    void run() {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.print("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
             switch (input.nextLine()) {
                 case "1":
@@ -45,7 +45,8 @@ public class AccountBook {
                     printContents(Integer.parseInt(input.nextLine()));
                     break;
                 case "0":
-                    flag = false;
+                    isRunning = false;
+                    input.close();
                     break;
             }
         }
@@ -125,8 +126,6 @@ public class AccountBook {
     }
 
     public static void main(String[] args) {
-        AccountBook ab = new AccountBook();
-        ab.askUserAction();
-        input.close();
+        new AccountBook().run();
     }
 }
