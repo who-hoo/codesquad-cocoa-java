@@ -63,9 +63,23 @@ public class AccountBook {
         contents.add(new AccountData(date, summary, income, expense));
     }
 
+    AccountData findOne(int no) {
+        for (AccountData content : contents) {
+            if (content.no == no) {
+                return content;
+            }
+        }
+        return null;
+    }
+
     void deleteContent(int no) {
-        // TODO: 데이터 삭제 구현
-        System.out.println("delete" + no);
+        AccountData target = findOne(no);
+        if (target == null) {
+            System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
+            return;
+        }
+        String result = contents.remove(target) ? "success" : "fail";
+        System.out.println(result);
     }
 
     void updateContent(int no) {
@@ -86,6 +100,11 @@ public class AccountBook {
 
     public static void main(String[] args) {
         AccountBook ab = new AccountBook();
+        // create data for test
+        ab.contents.add(new AccountData("20211108", "test1", 100, 0));
+        ab.contents.add(new AccountData("20211108", "test2", 200, 0));
+        ab.contents.add(new AccountData("20211108", "test3", 0, 100));
+
         ab.askUserAction();
         input.close();
     }
