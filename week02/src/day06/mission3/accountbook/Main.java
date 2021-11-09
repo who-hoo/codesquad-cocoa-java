@@ -4,23 +4,23 @@ import java.util.*;
 
 public class Main {
 
-    static HashSet<User> users = new HashSet<>();
-    static ArrayList<AccountBook> books = new ArrayList<>();
+    private static final HashSet<User> users = new HashSet<>();
+    private static final ArrayList<AccountBook> books = new ArrayList<>();
 
-    boolean isRunning = true;
+    private boolean isRunning = true;
 
-    void run() {
+    public void run() {
         while (isRunning) {
             String action = getAction();
             execAction(action);
         }
     }
 
-    String getAction() {
+    private String getAction() {
         return Input.getString("press (1: 사용자등록, 2: 로그인, 0: 종료) + enter >>>>> ");
     }
 
-    void execAction(String action) {
+    private void execAction(String action) {
         switch (action) {
             case "1":
                 userRegister();
@@ -37,7 +37,7 @@ public class Main {
         }
     }
 
-    void userRegister() {
+    private void userRegister() {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
@@ -46,7 +46,7 @@ public class Main {
         System.out.println(result);
     }
 
-    boolean checkId(String userName) {
+    private boolean checkId(String userName) {
         boolean isValid = users.stream()
             .anyMatch(user -> user.getName().equals(userName));
         if (!isValid) {
@@ -55,7 +55,7 @@ public class Main {
         return isValid;
     }
 
-    boolean checkPassword(String userName, String userPassword) {
+    private boolean checkPassword(String userName, String userPassword) {
         boolean isValid = users.stream()
             .anyMatch(
                 user -> user.getName().equals(userName) && user.getPassword().equals(userPassword));
@@ -65,7 +65,7 @@ public class Main {
         return isValid;
     }
 
-    void signIn() {
+    private void signIn() {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
 
