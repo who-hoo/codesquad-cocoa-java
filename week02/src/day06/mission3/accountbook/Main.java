@@ -46,9 +46,9 @@ public class Main {
         System.out.println(result);
     }
 
-    private boolean checkId(String userName) {
+    private boolean checkName(String userName) {
         boolean isValid = users.stream()
-            .anyMatch(user -> user.getName().equals(userName));
+            .anyMatch(user -> user.correctName(userName));
         if (!isValid) {
             System.out.println("존재하지 않는 사용자입니다.");
         }
@@ -58,7 +58,7 @@ public class Main {
     private boolean checkPassword(String userName, String userPassword) {
         boolean isValid = users.stream()
             .anyMatch(
-                user -> user.getName().equals(userName) && user.getPassword().equals(userPassword));
+                user -> user.correctName(userName) && user.correctPassword(userPassword));
         if (!isValid) {
             System.out.println("비밀번호가 일치하지 않습니다.");
         }
@@ -69,9 +69,9 @@ public class Main {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
 
-        if (checkId(userName) && checkPassword(userName, userPassword)) {
+        if (checkName(userName) && checkPassword(userName, userPassword)) {
             books.stream()
-                .filter(book -> book.getUserName().equals(userName))
+                .filter(book -> book.of(userName))
                 .forEach(AccountBook::run);
         } else {
             System.out.println("로그인에 실패하였습니다.");

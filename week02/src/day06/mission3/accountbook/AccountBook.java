@@ -22,8 +22,8 @@ public class AccountBook {
         }
     }
 
-    public String getUserName() {
-        return user.getName();
+    public boolean of(String userName) {
+        return user.correctName(userName);
     }
 
     private String getAction() {
