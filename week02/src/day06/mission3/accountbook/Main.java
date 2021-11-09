@@ -41,8 +41,8 @@ public class Main {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
-        String result = users.add(user) && books.add(new AccountBook(user))
-            ? "사용자 등록을 완료하였습니다." : "이미 존재하는 사용자입니다.";
+        boolean isSuccessful = users.add(user) && books.add(new AccountBook(user));
+        String result = isSuccessful ? "사용자 등록을 완료하였습니다." : "이미 존재하는 사용자입니다.";
         System.out.println(result);
     }
 
