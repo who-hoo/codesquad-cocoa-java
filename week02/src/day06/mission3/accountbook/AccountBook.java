@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class AccountBook {
 
-    User user;
-    int generateNo = 0;
-    ArrayList<AccountData> contents;
-    boolean isRunning = true;
+    private final User user;
+    private final ArrayList<AccountData> contents;
+    private int generateNo = 0;
+    private boolean isRunning = true;
 
     AccountBook(User user) {
         this.user = user;
         this.contents = new ArrayList<>(30);
     }
 
-    void run() {
+    public void run() {
         isRunning = true;
         while (isRunning) {
             String action = getAction();
@@ -22,11 +22,15 @@ public class AccountBook {
         }
     }
 
-    String getAction() {
+    public String getUserName() {
+        return user.getName();
+    }
+
+    private String getAction() {
         return Input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
     }
 
-    void execAction(String action) {
+    private void execAction(String action) {
         switch (action) {
             case "1":
                 createContent();
@@ -48,7 +52,7 @@ public class AccountBook {
         }
     }
 
-    void createContent() {
+    private void createContent() {
         String date = Input.getYYYYMMDD();
         String summary = Input.getString("적요 >>>>> ");
         int income = Input.getInteger("수입 >>>>> ");
@@ -57,7 +61,7 @@ public class AccountBook {
         contents.add(new AccountData(generateNo++, date, summary, income, expense));
     }
 
-    AccountData findOne(int no) {
+    private AccountData findOne(int no) {
         for (AccountData content : contents) {
             if (content.no == no) {
                 return content;
@@ -66,7 +70,7 @@ public class AccountBook {
         return null;
     }
 
-    void deleteContent(int no) {
+    private void deleteContent(int no) {
         AccountData target = findOne(no);
         if (target == null) {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
@@ -76,7 +80,7 @@ public class AccountBook {
         System.out.println(result);
     }
 
-    void updateContent(int no) {
+    private void updateContent(int no) {
         AccountData target = findOne(no);
         if (target == null) {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
@@ -93,7 +97,7 @@ public class AccountBook {
             , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
     }
 
-    int calcMonthlyBalance(int month) {
+    private int calcMonthlyBalance(int month) {
         return contents.stream()
             .filter(
                 content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
@@ -102,13 +106,13 @@ public class AccountBook {
             .sum();
     }
 
-    int calcTotalBalance() {
+    private int calcTotalBalance() {
         return contents.stream()
             .mapToInt(content -> content.income - content.expense)
             .sum();
     }
 
-    void printContents(int month) {
+    private void printContents(int month) {
         System.out.println("========== " + (month == 0 ? "전체" : month) + " 월의 지출내역 출력 ==========");
         System.out.printf("[순번] 날짜 적요 수입 지출 %n");
         contents.stream()

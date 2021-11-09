@@ -71,7 +71,7 @@ public class Main {
 
         if (checkId(userName) && checkPassword(userName, userPassword)) {
             books.stream()
-                .filter(book -> book.user.getName().equals(userName))
+                .filter(book -> book.getUserName().equals(userName))
                 .forEach(AccountBook::run);
         } else {
             System.out.println("로그인에 실패하였습니다.");
