@@ -85,20 +85,20 @@ public class AccountBook {
         }
 
         int targetIndex = contents.indexOf(target);
-        target.date = input.getYYYYMMDD();
+        target.yyyymmdd = input.getYYYYMMDD();
         target.summary = input.getString("적요 >>>>> ");
         target.income = input.getInteger("수입 >>>>> ");
         target.expense = input.getInteger("지출 >>>>> ");
         AccountData result = contents.set(targetIndex, target);
         System.out.printf("update success : [%d] %s %s %d %d %n"
-            , result.no, result.date, result.summary, result.income, result.expense);
+            , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
     }
 
     int calcMonthlyBalance(int month) {
         return contents.stream()
             .filter(
-                content -> Integer.parseInt(content.date.substring(4, 6)) == (month == 0 ?
-                    Integer.parseInt(content.date.substring(4, 6)) : month))
+                content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
+                    Integer.parseInt(content.yyyymmdd.substring(4, 6)) : month))
             .mapToInt(content -> content.income - content.expense)
             .sum();
     }
@@ -114,10 +114,10 @@ public class AccountBook {
         System.out.printf("[순번] 날짜 적요 수입 지출 %n");
         contents.stream()
             .filter(
-                content -> Integer.parseInt(content.date.substring(4, 6)) == (month == 0 ?
-                    Integer.parseInt(content.date.substring(4, 6)) : month))
+                content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
+                    Integer.parseInt(content.yyyymmdd.substring(4, 6)) : month))
             .forEach(content -> System.out.printf("[%d] %s %s %d %d %n"
-                , content.no, content.date, content.summary, content.income, content.expense));
+                , content.no, content.yyyymmdd, content.summary, content.income, content.expense));
         System.out.println("=======================================");
         System.out
             .println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + calcTotalBalance() + "원");

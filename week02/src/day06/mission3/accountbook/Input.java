@@ -60,6 +60,9 @@ public class Input {
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
             yyyymmdd = getYYYYMMDD();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("yyyymmdd 형식으로 입력하세요.");
+            yyyymmdd = getYYYYMMDD();
         }
         return yyyymmdd;
     }
