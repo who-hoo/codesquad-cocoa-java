@@ -7,16 +7,16 @@ public class Input {
 
     static Scanner input = new Scanner(System.in);
 
-    void close() {
+    static void close() {
         input.close();
     }
 
-    String getString(String msg) {
+    static String getString(String msg) {
         System.out.print(msg);
         return input.nextLine();
     }
 
-    int getInteger(String msg) {
+    static int getInteger(String msg) {
         System.out.print(msg);
         int n;
         try {
@@ -28,25 +28,25 @@ public class Input {
         return n;
     }
 
-    void validateYear(int year) {
+    static void validateYear(int year) {
         if (!(0 <= year && year < 10000)) {
             throw new InputMismatchException("연도(year)가 범위(0000~9999)를 벗어납니다.");
         }
     }
 
-    void validateMonth(int month) {
+    static void validateMonth(int month) {
         if (!(0 < month && month < 13)) {
             throw new InputMismatchException("월(month)이 범위(1~12)를 벗어납니다.");
         }
     }
 
-    void validateDay(int day) {
+    static void validateDay(int day) {
         if (!(0 < day && day < 31)) {
             throw new InputMismatchException("일(day)이 범위(1~31)를 벗어납니다.");
         }
     }
 
-    String getYYYYMMDD() {
+    static String getYYYYMMDD() {
         System.out.print("날짜(yyyymmdd) >>>>> ");
         String yyyymmdd;
         try {

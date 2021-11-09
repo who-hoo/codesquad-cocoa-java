@@ -6,7 +6,6 @@ public class Main {
 
     static HashSet<User> users = new HashSet<>();
     static ArrayList<AccountBook> books = new ArrayList<>();
-    static Input input = new Input();
 
     boolean isRunning = true;
 
@@ -18,7 +17,7 @@ public class Main {
     }
 
     String getAction() {
-        return input.getString("press (1: 사용자등록, 2: 로그인, 0: 종료) + enter >>>>> ");
+        return Input.getString("press (1: 사용자등록, 2: 로그인, 0: 종료) + enter >>>>> ");
     }
 
     void execAction(String action) {
@@ -31,7 +30,7 @@ public class Main {
                 break;
             case "0":
                 isRunning = false;
-                input.close();
+                Input.close();
                 break;
             default:
                 break;
@@ -39,8 +38,8 @@ public class Main {
     }
 
     void userRegister() {
-        String userName = input.getString("input your name >>>>> ");
-        String userPassword = input.getString("input your password >>>>> ");
+        String userName = Input.getString("input your name >>>>> ");
+        String userPassword = Input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
         String result = users.add(user) && books.add(new AccountBook(user))
             ? "사용자 등록을 완료하였습니다." : "이미 존재하는 사용자입니다.";
@@ -67,8 +66,8 @@ public class Main {
     }
 
     void signIn() {
-        String userName = input.getString("input your name >>>>> ");
-        String userPassword = input.getString("input your password >>>>> ");
+        String userName = Input.getString("input your name >>>>> ");
+        String userPassword = Input.getString("input your password >>>>> ");
 
         if (checkId(userName) && checkPassword(userName, userPassword)) {
             books.stream()

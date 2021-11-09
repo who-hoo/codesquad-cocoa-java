@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class AccountBook {
 
-    Input input = new Input();
     User user;
     int generateNo = 0;
     ArrayList<AccountData> contents;
@@ -24,7 +23,7 @@ public class AccountBook {
     }
 
     String getAction() {
-        return input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
+        return Input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
     }
 
     void execAction(String action) {
@@ -33,13 +32,13 @@ public class AccountBook {
                 createContent();
                 break;
             case "2":
-                deleteContent(input.getInteger("삭제할 데이터의 순번을 입력해주세요 >>>>> "));
+                deleteContent(Input.getInteger("삭제할 데이터의 순번을 입력해주세요 >>>>> "));
                 break;
             case "3":
-                updateContent(input.getInteger("수정할 데이터의 순번을 입력해주세요 >>>>> "));
+                updateContent(Input.getInteger("수정할 데이터의 순번을 입력해주세요 >>>>> "));
                 break;
             case "4":
-                printContents(input.getInteger("출력할 대상 월을 입력해주세요(0: 전체) >>>>> "));
+                printContents(Input.getInteger("출력할 대상 월을 입력해주세요(0: 전체) >>>>> "));
                 break;
             case "0":
                 isRunning = false;
@@ -50,10 +49,10 @@ public class AccountBook {
     }
 
     void createContent() {
-        String date = input.getYYYYMMDD();
-        String summary = input.getString("적요 >>>>> ");
-        int income = input.getInteger("수입 >>>>> ");
-        int expense = input.getInteger("지출 >>>>> ");
+        String date = Input.getYYYYMMDD();
+        String summary = Input.getString("적요 >>>>> ");
+        int income = Input.getInteger("수입 >>>>> ");
+        int expense = Input.getInteger("지출 >>>>> ");
 
         contents.add(new AccountData(generateNo++, date, summary, income, expense));
     }
@@ -85,10 +84,10 @@ public class AccountBook {
         }
 
         int targetIndex = contents.indexOf(target);
-        target.yyyymmdd = input.getYYYYMMDD();
-        target.summary = input.getString("적요 >>>>> ");
-        target.income = input.getInteger("수입 >>>>> ");
-        target.expense = input.getInteger("지출 >>>>> ");
+        target.yyyymmdd = Input.getYYYYMMDD();
+        target.summary = Input.getString("적요 >>>>> ");
+        target.income = Input.getInteger("수입 >>>>> ");
+        target.expense = Input.getInteger("지출 >>>>> ");
         AccountData result = contents.set(targetIndex, target);
         System.out.printf("update success : [%d] %s %s %d %d %n"
             , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
