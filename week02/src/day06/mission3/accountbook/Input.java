@@ -6,18 +6,18 @@ import java.util.Scanner;
 
 public class Input {
 
-    static Scanner input = new Scanner(System.in);
+    public static final Scanner input = new Scanner(System.in);
 
-    static void close() {
+    public static void close() {
         input.close();
     }
 
-    static String getString(String msg) {
+    public static String getString(String msg) {
         System.out.print(msg);
         return input.nextLine();
     }
 
-    static int getInteger(String msg) {
+    public static int getInteger(String msg) {
         System.out.print(msg);
         int n;
         try {
@@ -29,7 +29,7 @@ public class Input {
         return n;
     }
 
-    static public PaymentType getPaymentType() {
+    public static PaymentType getPaymentType() {
         System.out.print("결제 타입(1: 현금, 2: 카드, 0: 결제안함)을 입력하세요 >>>>> ");
         PaymentType pt;
         try {
@@ -41,25 +41,25 @@ public class Input {
         return pt;
     }
 
-    static void validateYear(int year) {
+    public static void validateYear(int year) {
         if (!(0 <= year && year < 10000)) {
             throw new InputMismatchException("연도(year)가 범위(0000~9999)를 벗어납니다.");
         }
     }
 
-    static void validateMonth(int month) {
+    public static void validateMonth(int month) {
         if (!(0 < month && month < 13)) {
             throw new InputMismatchException("월(month)이 범위(1~12)를 벗어납니다.");
         }
     }
 
-    static void validateDay(int day) {
+    public static void validateDay(int day) {
         if (!(0 < day && day < 31)) {
             throw new InputMismatchException("일(day)이 범위(1~31)를 벗어납니다.");
         }
     }
 
-    static String getYYYYMMDD() {
+    public static String getYYYYMMDD() {
         System.out.print("날짜(yyyymmdd) >>>>> ");
         String yyyymmdd;
         try {
