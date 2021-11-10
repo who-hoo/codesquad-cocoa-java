@@ -31,8 +31,26 @@ public class Users {
         return users.add(user);
     }
 
-    // TODO: 로그인 구현
-    public boolean signIn() {
-        return false;
+    public boolean signIn(String userName, String userPassword) {
+        return isExistUser(userName) && isValidPassword(userName, userPassword);
+    }
+
+    private boolean isExistUser(String userName) {
+        boolean isExist = users.stream()
+            .anyMatch(user -> user.correctName(userName));
+        if (!isExist) {
+            System.out.println("존재하지 않는 사용자입니다.");
+        }
+        return isExist;
+    }
+
+    private boolean isValidPassword(String userName, String userPassword) {
+        boolean isValid = users.stream()
+            .anyMatch(
+                user -> user.correctName(userName) && user.correctPassword(userPassword));
+        if (!isValid) {
+            System.out.println("비밀번호가 일치하지 않습니다.");
+        }
+        return isValid;
     }
 }

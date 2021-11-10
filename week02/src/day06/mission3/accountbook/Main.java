@@ -27,7 +27,14 @@ public class Main {
                 userRegister();
                 break;
             case "2":
-                signIn();
+                String userName = Input.getString("input your name >>>>> ");
+                String userPassword = Input.getString("input your password >>>>> ");
+                if (userStore.signIn(userName, userPassword)) {
+                    System.out.println("로그인에 성공하였습니다.");
+                    // TODO: 가계부 실행 시작
+                } else {
+                    System.out.println("로그인에 실패하였습니다.");
+                }
                 break;
             case "0":
                 isRunning = false;
@@ -47,25 +54,7 @@ public class Main {
         System.out.println(result);
     }
 
-    private boolean checkName(String userName) {
-        boolean isValid = users.stream()
-            .anyMatch(user -> user.correctName(userName));
-        if (!isValid) {
-            System.out.println("존재하지 않는 사용자입니다.");
-        }
-        return isValid;
-    }
-
-    private boolean checkPassword(String userName, String userPassword) {
-        boolean isValid = users.stream()
-            .anyMatch(
-                user -> user.correctName(userName) && user.correctPassword(userPassword));
-        if (!isValid) {
-            System.out.println("비밀번호가 일치하지 않습니다.");
-        }
-        return isValid;
-    }
-
+    /*
     private void signIn() {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
@@ -78,6 +67,7 @@ public class Main {
             System.out.println("로그인에 실패하였습니다.");
         }
     }
+    */
 
     public static void main(String[] args) {
         new Main().run();
