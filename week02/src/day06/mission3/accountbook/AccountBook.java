@@ -60,9 +60,21 @@ public class AccountBook {
                     contents.add(new AccountData(no, date, summary, income, expense, paymentType));
                 }
             }
+            setGenerateNo();
         } catch (IOException e) {
             System.out.println("AccountBooks 초기화에 실패하였습니다.");
             e.printStackTrace();
+        }
+    }
+
+    private void setGenerateNo() {
+        try {
+            AccountData maxNoData = contents.stream()
+                .max(Comparator.comparing(AccountData::getNo))
+                .orElseThrow(NoSuchElementException::new);
+            generateNo = maxNoData.no + 1;
+        } catch (NoSuchElementException e) {
+            generateNo = 0;
         }
     }
 
