@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-    private static final Users userStore = new Users();
+    private final Users userStore = new Users();
     private static final HashSet<User> users = new HashSet<>();
     private static final ArrayList<AccountBook> books = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class Main {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
-        boolean isSuccessful = users.add(user) && books.add(new AccountBook(user));
+        boolean isSuccessful = userStore.signUp(user) && books.add(new AccountBook(user));
         String result = isSuccessful ? "사용자 등록을 완료하였습니다." : "이미 존재하는 사용자입니다.";
         System.out.println(result);
     }
