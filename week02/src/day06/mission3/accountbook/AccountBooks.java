@@ -5,9 +5,9 @@ import java.util.*;
 
 public class AccountBooks {
 
-    private final static String fileName = Users.class.getResource("").getPath() + "users.txt";
-    private final static File file = new File(fileName);
-    private final static List<AccountBook> books = new ArrayList<>();
+    private static final String fileName = Users.class.getResource("").getPath() + "users.txt";
+    private static final File file = new File(fileName);
+    private static final List<AccountBook> books = new ArrayList<>();
 
     AccountBooks() {
         generateAccountBooksFromFile();
