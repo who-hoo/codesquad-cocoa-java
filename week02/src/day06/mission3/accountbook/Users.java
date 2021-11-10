@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 public class Users {
 
-    private final static String fileName = Users.class.getResource("").getPath() + "users.txt";
-    private final static File file = new File(fileName);
-    private final static Set<User> users = new HashSet<>();
+    private static final String fileName = Users.class.getResource("").getPath() + "users.txt";
+    public static final File file = new File(fileName);
+    private static final Set<User> users = new HashSet<>();
 
     Users() {
         getUsersFromFile();
@@ -35,6 +35,7 @@ public class Users {
                 .collect(Collectors.joining("\n"));
             bw.write(str);
         } catch (IOException e) {
+            System.out.println("Users 저장에 실패하였습니다.");
             e.printStackTrace();
         }
     }
