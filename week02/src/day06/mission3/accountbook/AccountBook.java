@@ -32,6 +32,14 @@ public class AccountBook {
         return user.correctName(userName);
     }
 
+    public String toFileFormatString() {
+        String str = "";
+        for (AccountData content : contents) {
+            str = str + content.toFileFormatString(user);
+        }
+        return str;
+    }
+
     private String getAction() {
         return Input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
     }

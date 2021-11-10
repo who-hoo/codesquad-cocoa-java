@@ -36,4 +36,8 @@ public class User {
     public String toFileFormatString() {
         return this.name + ":" + this.password;
     }
+
+    public String getName() {
+        return name;
+    }
 }

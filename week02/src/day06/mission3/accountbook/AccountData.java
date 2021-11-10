@@ -20,4 +20,14 @@ public class AccountData {
         this.expense = expense;
         this.paymentType = paymentType;
     }
+
+    String toFileFormatString(User user) {
+        return user.getName() + " "
+            + no + " "
+            + yyyymmdd + " "
+            + summary + " "
+            + income + " "
+            + expense + " "
+            + paymentType + "\n";
+    }
 }

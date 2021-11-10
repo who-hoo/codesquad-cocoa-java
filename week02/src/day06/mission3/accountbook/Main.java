@@ -36,6 +36,7 @@ public class Main {
                 isRunning = false;
                 Input.close();
                 Users.save();
+                AccountBooks.save();
                 break;
             default:
                 break;
