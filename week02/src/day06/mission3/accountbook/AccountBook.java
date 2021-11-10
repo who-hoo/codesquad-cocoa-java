@@ -1,5 +1,6 @@
 package day06.mission3.accountbook;
 
+import day06.mission3.accountbook.meta.PaymentType;
 import java.util.ArrayList;
 
 public class AccountBook {
@@ -57,8 +58,9 @@ public class AccountBook {
         String summary = Input.getString("적요 >>>>> ");
         int income = Input.getInteger("수입 >>>>> ");
         int expense = Input.getInteger("지출 >>>>> ");
+        PaymentType paymentType = Input.getPaymentType();
 
-        contents.add(new AccountData(generateNo++, date, summary, income, expense));
+        contents.add(new AccountData(generateNo++, date, summary, income, expense, paymentType));
     }
 
     private AccountData findOne(int no) {
@@ -92,6 +94,7 @@ public class AccountBook {
         target.summary = Input.getString("적요 >>>>> ");
         target.income = Input.getInteger("수입 >>>>> ");
         target.expense = Input.getInteger("지출 >>>>> ");
+        // TODO: 결제 타입 추가
         AccountData result = contents.set(targetIndex, target);
         System.out.printf("update success : [%d] %s %s %d %d %n"
             , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
@@ -114,13 +117,14 @@ public class AccountBook {
 
     private void printContents(int month) {
         System.out.println("========== " + (month == 0 ? "전체" : month) + " 월의 지출내역 출력 ==========");
-        System.out.printf("[순번] 날짜 적요 수입 지출 %n");
+        System.out.printf("[순번] 날짜 적요 수입 지출 결제유형 %n");
         contents.stream()
             .filter(
                 content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
                     Integer.parseInt(content.yyyymmdd.substring(4, 6)) : month))
-            .forEach(content -> System.out.printf("[%d] %s %s %d %d %n"
-                , content.no, content.yyyymmdd, content.summary, content.income, content.expense));
+            .forEach(content -> System.out.printf("[%d] %s %s %d %d %s %n"
+                , content.no, content.yyyymmdd, content.summary, content.income, content.expense,
+                content.paymentType));
         System.out.println("=======================================");
         System.out
             .println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + calcTotalBalance() + "원");
