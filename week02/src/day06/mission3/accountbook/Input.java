@@ -6,22 +6,22 @@ import java.util.Scanner;
 
 public class Input {
 
-    public static final Scanner input = new Scanner(System.in);
+    public static final Scanner sc = new Scanner(System.in);
 
     public static void close() {
-        input.close();
+        sc.close();
     }
 
     public static String getString(String msg) {
         System.out.print(msg);
-        return input.nextLine();
+        return sc.nextLine();
     }
 
     public static int getInteger(String msg) {
         System.out.print(msg);
         int n;
         try {
-            n = Integer.parseInt(input.nextLine());
+            n = Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("숫자를 입력하세요.");
             n = getInteger(msg);
@@ -33,7 +33,7 @@ public class Input {
         System.out.print("결제 타입(1: 현금, 2: 카드, 0: 결제안함)을 입력하세요 >>>>> ");
         PaymentType pt;
         try {
-            pt = PaymentType.getMatchedPaymentType(input.nextLine());
+            pt = PaymentType.getMatchedPaymentType(sc.nextLine());
         } catch (IllegalArgumentException e) {
             System.out.println("존재하지 않는 결제 타입(1: 현금, 2: 카드, 0: 결제안함)입니다.");
             pt = getPaymentType();
@@ -63,7 +63,7 @@ public class Input {
         System.out.print("날짜(yyyymmdd) >>>>> ");
         String yyyymmdd;
         try {
-            yyyymmdd = input.nextLine();
+            yyyymmdd = sc.nextLine();
             validateYear(Integer.parseInt(yyyymmdd.substring(0, 4)));
             validateMonth(Integer.parseInt(yyyymmdd.substring(4, 6)));
             validateDay(Integer.parseInt(yyyymmdd.substring(6, 8)));
