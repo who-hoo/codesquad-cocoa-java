@@ -1,9 +1,13 @@
 package day06.mission3.accountbook;
 
 import day06.mission3.accountbook.meta.PaymentType;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class AccountBook {
+
+    private static final String fileName = Users.class.getResource("").getPath() + "books.txt";
+    private static final File file = new File(fileName);
 
     private final User user;
     private final ArrayList<AccountData> contents;
@@ -13,6 +17,7 @@ public class AccountBook {
     AccountBook(User user) {
         this.user = user;
         this.contents = new ArrayList<>(30);
+        getAccountDataFromFile();
     }
 
     public void run() {
@@ -29,6 +34,28 @@ public class AccountBook {
 
     private String getAction() {
         return Input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
+    }
+
+    private void getAccountDataFromFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String str = null;
+            while ((str = br.readLine()) != null) {
+                String userName = str.split(" ")[0];
+                int no = Integer.parseInt(str.split(" ")[1]);
+                String date = str.split(" ")[2];
+                String summary = str.split(" ")[3];
+                int income = Integer.parseInt(str.split(" ")[4]);
+                int expense = Integer.parseInt(str.split(" ")[5]);
+                PaymentType paymentType = PaymentType.valueOf(str.split(" ")[6]);
+
+                if (user.correctName(userName)) {
+                    contents.add(new AccountData(no, date, summary, income, expense, paymentType));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("AccountBooks 초기화에 실패하였습니다.");
+            e.printStackTrace();
+        }
     }
 
     private void execAction(String action) {
