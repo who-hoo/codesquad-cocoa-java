@@ -10,6 +10,7 @@ public class User {
         this.password = password;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof User) {
             User temp = (User) obj;
@@ -19,6 +20,7 @@ public class User {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return name.hashCode();
     }
