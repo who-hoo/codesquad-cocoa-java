@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Main {
 
+    private static final Users userStore = new Users();
     private static final HashSet<User> users = new HashSet<>();
     private static final ArrayList<AccountBook> books = new ArrayList<>();
 
