@@ -1,13 +1,9 @@
 package day06.mission3.accountbook;
 
-import java.util.*;
-
 public class Main {
 
-    private final Users userStore = new Users();
-    private final AccountBooks bookStore = new AccountBooks();
-    private static final HashSet<User> users = new HashSet<>();
-    private static final ArrayList<AccountBook> books = new ArrayList<>();
+    private static final Users userStore = new Users();
+    private static final AccountBooks bookStore = new AccountBooks();
 
     private boolean isRunning = true;
 
