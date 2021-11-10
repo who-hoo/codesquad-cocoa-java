@@ -4,18 +4,17 @@ import java.util.ArrayList;
 
 public class AccountBook {
 
-    Input input = new Input();
-    User user;
-    int generateNo = 0;
-    ArrayList<AccountData> contents;
-    boolean isRunning = true;
+    private final User user;
+    private final ArrayList<AccountData> contents;
+    private int generateNo = 0;
+    private boolean isRunning = true;
 
     AccountBook(User user) {
         this.user = user;
         this.contents = new ArrayList<>(30);
     }
 
-    void run() {
+    public void run() {
         isRunning = true;
         while (isRunning) {
             String action = getAction();
@@ -23,23 +22,27 @@ public class AccountBook {
         }
     }
 
-    String getAction() {
-        return input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
+    public boolean of(String userName) {
+        return user.correctName(userName);
     }
 
-    void execAction(String action) {
+    private String getAction() {
+        return Input.getString("press (1: 입력, 2: 삭제, 3: 수정, 4: 출력, 0: 종료) + enter >>>>> ");
+    }
+
+    private void execAction(String action) {
         switch (action) {
             case "1":
                 createContent();
                 break;
             case "2":
-                deleteContent(input.getInteger("삭제할 데이터의 순번을 입력해주세요 >>>>> "));
+                deleteContent(Input.getInteger("삭제할 데이터의 순번을 입력해주세요 >>>>> "));
                 break;
             case "3":
-                updateContent(input.getInteger("수정할 데이터의 순번을 입력해주세요 >>>>> "));
+                updateContent(Input.getInteger("수정할 데이터의 순번을 입력해주세요 >>>>> "));
                 break;
             case "4":
-                printContents(input.getInteger("출력할 대상 월을 입력해주세요(0: 전체) >>>>> "));
+                printContents(Input.getInteger("출력할 대상 월을 입력해주세요(0: 전체) >>>>> "));
                 break;
             case "0":
                 isRunning = false;
@@ -49,16 +52,16 @@ public class AccountBook {
         }
     }
 
-    void createContent() {
-        String date = input.getYYYYMMDD();
-        String summary = input.getString("적요 >>>>> ");
-        int income = input.getInteger("수입 >>>>> ");
-        int expense = input.getInteger("지출 >>>>> ");
+    private void createContent() {
+        String date = Input.getYYYYMMDD();
+        String summary = Input.getString("적요 >>>>> ");
+        int income = Input.getInteger("수입 >>>>> ");
+        int expense = Input.getInteger("지출 >>>>> ");
 
         contents.add(new AccountData(generateNo++, date, summary, income, expense));
     }
 
-    AccountData findOne(int no) {
+    private AccountData findOne(int no) {
         for (AccountData content : contents) {
             if (content.no == no) {
                 return content;
@@ -67,7 +70,7 @@ public class AccountBook {
         return null;
     }
 
-    void deleteContent(int no) {
+    private void deleteContent(int no) {
         AccountData target = findOne(no);
         if (target == null) {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
@@ -77,7 +80,7 @@ public class AccountBook {
         System.out.println(result);
     }
 
-    void updateContent(int no) {
+    private void updateContent(int no) {
         AccountData target = findOne(no);
         if (target == null) {
             System.out.println("해당 순번의 데이터가 존재하지 않습니다.");
@@ -85,39 +88,39 @@ public class AccountBook {
         }
 
         int targetIndex = contents.indexOf(target);
-        target.date = input.getYYYYMMDD();
-        target.summary = input.getString("적요 >>>>> ");
-        target.income = input.getInteger("수입 >>>>> ");
-        target.expense = input.getInteger("지출 >>>>> ");
+        target.yyyymmdd = Input.getYYYYMMDD();
+        target.summary = Input.getString("적요 >>>>> ");
+        target.income = Input.getInteger("수입 >>>>> ");
+        target.expense = Input.getInteger("지출 >>>>> ");
         AccountData result = contents.set(targetIndex, target);
         System.out.printf("update success : [%d] %s %s %d %d %n"
-            , result.no, result.date, result.summary, result.income, result.expense);
+            , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
     }
 
-    int calcMonthlyBalance(int month) {
+    private int calcMonthlyBalance(int month) {
         return contents.stream()
             .filter(
-                content -> Integer.parseInt(content.date.substring(4, 6)) == (month == 0 ?
-                    Integer.parseInt(content.date.substring(4, 6)) : month))
+                content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
+                    Integer.parseInt(content.yyyymmdd.substring(4, 6)) : month))
             .mapToInt(content -> content.income - content.expense)
             .sum();
     }
 
-    int calcTotalBalance() {
+    private int calcTotalBalance() {
         return contents.stream()
             .mapToInt(content -> content.income - content.expense)
             .sum();
     }
 
-    void printContents(int month) {
+    private void printContents(int month) {
         System.out.println("========== " + (month == 0 ? "전체" : month) + " 월의 지출내역 출력 ==========");
         System.out.printf("[순번] 날짜 적요 수입 지출 %n");
         contents.stream()
             .filter(
-                content -> Integer.parseInt(content.date.substring(4, 6)) == (month == 0 ?
-                    Integer.parseInt(content.date.substring(4, 6)) : month))
+                content -> Integer.parseInt(content.yyyymmdd.substring(4, 6)) == (month == 0 ?
+                    Integer.parseInt(content.yyyymmdd.substring(4, 6)) : month))
             .forEach(content -> System.out.printf("[%d] %s %s %d %d %n"
-                , content.no, content.date, content.summary, content.income, content.expense));
+                , content.no, content.yyyymmdd, content.summary, content.income, content.expense));
         System.out.println("=======================================");
         System.out
             .println("잔액 : " + calcMonthlyBalance(month) + "원, 총잔액 : " + calcTotalBalance() + "원");

@@ -23,11 +23,11 @@ public class User {
         return name.hashCode();
     }
 
-    public String getName() {
-        return name;
+    public boolean correctName(String name) {
+        return this.name.equals(name);
     }
 
-    public String getPassword() {
-        return password;
+    public boolean correctPassword(String password) {
+        return this.password.equals(password);
     }
 }
