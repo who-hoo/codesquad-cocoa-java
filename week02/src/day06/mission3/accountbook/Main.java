@@ -5,6 +5,7 @@ import java.util.*;
 public class Main {
 
     private final Users userStore = new Users();
+    private final AccountBooks bookStore = new AccountBooks();
     private static final HashSet<User> users = new HashSet<>();
     private static final ArrayList<AccountBook> books = new ArrayList<>();
 
@@ -30,8 +31,7 @@ public class Main {
                 String userName = Input.getString("input your name >>>>> ");
                 String userPassword = Input.getString("input your password >>>>> ");
                 if (userStore.signIn(userName, userPassword)) {
-                    System.out.println("로그인에 성공하였습니다.");
-                    // TODO: 가계부 실행 시작
+                    bookStore.run(userName);
                 } else {
                     System.out.println("로그인에 실패하였습니다.");
                 }
@@ -49,25 +49,10 @@ public class Main {
         String userName = Input.getString("input your name >>>>> ");
         String userPassword = Input.getString("input your password >>>>> ");
         User user = new User(userName, userPassword);
-        boolean isSuccessful = userStore.signUp(user) && books.add(new AccountBook(user));
+        boolean isSuccessful = userStore.signUp(user) && bookStore.create(user);
         String result = isSuccessful ? "사용자 등록을 완료하였습니다." : "이미 존재하는 사용자입니다.";
         System.out.println(result);
     }
-
-    /*
-    private void signIn() {
-        String userName = Input.getString("input your name >>>>> ");
-        String userPassword = Input.getString("input your password >>>>> ");
-
-        if (checkName(userName) && checkPassword(userName, userPassword)) {
-            books.stream()
-                .filter(book -> book.of(userName))
-                .forEach(AccountBook::run);
-        } else {
-            System.out.println("로그인에 실패하였습니다.");
-        }
-    }
-    */
 
     public static void main(String[] args) {
         new Main().run();

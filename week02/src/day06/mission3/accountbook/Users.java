@@ -28,6 +28,7 @@ public class Users {
     }
 
     public boolean signUp(User user) {
+        // TODO: 파일에 추가
         return users.add(user);
     }
 
