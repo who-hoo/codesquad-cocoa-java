@@ -94,10 +94,11 @@ public class AccountBook {
         target.summary = Input.getString("적요 >>>>> ");
         target.income = Input.getInteger("수입 >>>>> ");
         target.expense = Input.getInteger("지출 >>>>> ");
-        // TODO: 결제 타입 추가
+        target.paymentType = Input.getPaymentType();
         AccountData result = contents.set(targetIndex, target);
-        System.out.printf("update success : [%d] %s %s %d %d %n"
-            , result.no, result.yyyymmdd, result.summary, result.income, result.expense);
+        System.out.printf("update success : [%d] %s %s %d %d %s %n"
+            , result.no, result.yyyymmdd, result.summary, result.income, result.expense,
+            result.paymentType);
     }
 
     private int calcMonthlyBalance(int month) {
