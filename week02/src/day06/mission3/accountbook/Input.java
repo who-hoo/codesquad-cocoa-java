@@ -1,5 +1,6 @@
 package day06.mission3.accountbook;
 
+import day06.mission3.accountbook.meta.PaymentType;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -26,6 +27,18 @@ public class Input {
             n = getInteger(msg);
         }
         return n;
+    }
+
+    static public PaymentType getPaymentType() {
+        System.out.print("결제 타입(1: 현금, 2: 카드, 0: 결제안함)을 입력하세요 >>>>> ");
+        PaymentType pt;
+        try {
+            pt = PaymentType.getMatchedPaymentType(input.nextLine());
+        } catch (IllegalArgumentException e) {
+            System.out.println("존재하지 않는 결제 타입(1: 현금, 2: 카드, 0: 결제안함)입니다.");
+            pt = getPaymentType();
+        }
+        return pt;
     }
 
     static void validateYear(int year) {
