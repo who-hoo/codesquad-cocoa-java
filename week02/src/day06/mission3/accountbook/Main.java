@@ -35,6 +35,7 @@ public class Main {
             case "0":
                 isRunning = false;
                 Input.close();
+                Users.save();
                 break;
             default:
                 break;

@@ -32,4 +32,8 @@ public class User {
     public boolean correctPassword(String password) {
         return this.password.equals(password);
     }
+
+    public String toFileFormatString() {
+        return this.name + ":" + this.password;
+    }
 }

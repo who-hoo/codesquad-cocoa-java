@@ -2,6 +2,7 @@ package day06.mission3.accountbook;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Users {
 
@@ -27,8 +28,18 @@ public class Users {
         }
     }
 
+    public static void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            String str = users.stream()
+                .map(User::toFileFormatString)
+                .collect(Collectors.joining("\n"));
+            bw.write(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean signUp(User user) {
-        // TODO: 파일에 추가
         return users.add(user);
     }
 
