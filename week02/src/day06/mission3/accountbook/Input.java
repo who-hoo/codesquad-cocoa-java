@@ -8,6 +8,10 @@ public class Input {
 
     public static final Scanner sc = new Scanner(System.in);
 
+    private Input() {
+        throw new IllegalStateException("Utility class");
+    }
+    
     public static void close() {
         sc.close();
     }
