@@ -1,8 +1,7 @@
 package day06.mission3.accountbook;
 
 import day06.mission3.accountbook.meta.PaymentType;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Input {
 
@@ -11,23 +10,45 @@ public class Input {
     private Input() {
         throw new IllegalStateException("Utility class");
     }
-    
+
     public static void close() {
         sc.close();
     }
 
     public static String getString(String msg) {
         System.out.print(msg);
-        return sc.nextLine();
+        String str = "";
+        try {
+            str = sc.nextLine();
+        } catch (NoSuchElementException e) {
+            System.out.println("no line was found.");
+            str = sc.nextLine();
+        } catch (IllegalStateException e) {
+            System.out.println("scanner is closed.");
+            str = sc.nextLine();
+        }
+        return str;
     }
 
     public static int getInteger(String msg) {
         System.out.print(msg);
         int n;
         try {
-            n = Integer.parseInt(sc.nextLine());
+            String str = sc.nextLine().trim();
+            if (str.contains(".")) {
+                throw new InputException("소수를 입력하셨습니다. 정수를 입력하세요.");
+            }
+            if (!(Integer.MIN_VALUE < Long.parseLong(str)
+                && Long.parseLong(str) < Integer.MAX_VALUE)) {
+                throw new InputException(
+                    Integer.MIN_VALUE + "~" + Integer.MAX_VALUE + " 범위 이내의 숫자를 입력하세요.");
+            }
+            n = Integer.parseInt(str);
         } catch (NumberFormatException e) {
             System.out.println("숫자를 입력하세요.");
+            n = getInteger(msg);
+        } catch (InputException e) {
+            System.out.println(e.getMessage());
             n = getInteger(msg);
         }
         return n;
@@ -43,24 +64,6 @@ public class Input {
             pt = getPaymentType();
         }
         return pt;
-    }
-
-    public static void validateYear(int year) {
-        if (!(0 <= year && year < 10000)) {
-            throw new InputMismatchException("연도(year)가 범위(0000~9999)를 벗어납니다.");
-        }
-    }
-
-    public static void validateMonth(int month) {
-        if (!(0 < month && month < 13)) {
-            throw new InputMismatchException("월(month)이 범위(1~12)를 벗어납니다.");
-        }
-    }
-
-    public static void validateDay(int day) {
-        if (!(0 < day && day < 31)) {
-            throw new InputMismatchException("일(day)이 범위(1~31)를 벗어납니다.");
-        }
     }
 
     public static String getYYYYMMDD() {
@@ -82,5 +85,26 @@ public class Input {
             yyyymmdd = getYYYYMMDD();
         }
         return yyyymmdd;
+    }
+
+    // ===============================================================================
+    // validation check
+    // ===============================================================================
+    private static void validateYear(int year) {
+        if (!(0 <= year && year < 10000)) {
+            throw new InputMismatchException("연도(year)가 범위(0000~9999)를 벗어납니다.");
+        }
+    }
+
+    private static void validateMonth(int month) {
+        if (!(0 < month && month < 13)) {
+            throw new InputMismatchException("월(month)이 범위(1~12)를 벗어납니다.");
+        }
+    }
+
+    private static void validateDay(int day) {
+        if (!(0 < day && day < 31)) {
+            throw new InputMismatchException("일(day)이 범위(1~31)를 벗어납니다.");
+        }
     }
 }
