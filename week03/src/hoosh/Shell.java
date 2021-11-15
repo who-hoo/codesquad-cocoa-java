@@ -10,8 +10,8 @@ public class Shell {
     public boolean isRunning;
 
     public Shell() {
-//        this.currentPath = Paths.get("/Users/parkjunghoo");
-        this.currentPath = Paths.get("").toAbsolutePath();
+        this.currentPath = Paths.get("/Users/parkjunghoo");
+//        this.currentPath = Paths.get("").toAbsolutePath();
         this.isRunning = true;
     }
 
@@ -53,9 +53,9 @@ public class Shell {
             return;
         }
         for (File file : files) {
-            if (file.isDirectory()) {
+            if (file.isDirectory() && !file.isHidden()) {
                 System.out.println("dir : " + file.getName());
-            } else {
+            } else if (file.isFile() && !file.isHidden()){
                 System.out.println(file.getName());
             }
         }
