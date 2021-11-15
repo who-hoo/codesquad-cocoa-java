@@ -22,6 +22,9 @@ public class Shell {
 
     public void execCommand() {
         switch (getCommand()) {
+            case "pwd":
+                pwd();
+                break;
             case "q":
                 quit();
                 break;
@@ -30,6 +33,10 @@ public class Shell {
                 execCommand();
                 break;
         }
+    }
+
+    private void pwd() {
+        System.out.println(currentPath);
     }
 
     private void quit() {
