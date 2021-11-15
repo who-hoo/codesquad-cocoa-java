@@ -10,8 +10,8 @@ public class Shell {
     public boolean isRunning;
 
     public Shell() {
-        this.currentPath = Paths.get("/Users/parkjunghoo");
-//        this.currentPath = Paths.get("").toAbsolutePath();
+//        this.currentPath = Paths.get("/Users/parkjunghoo");
+        this.currentPath = Paths.get("").toAbsolutePath();
         this.isRunning = true;
     }
 
@@ -31,6 +31,9 @@ public class Shell {
                 break;
             case "cd":
                 cd(cmds[1]);
+                break;
+            case "mkdir":
+                mkdir(cmds[1]);
                 break;
             case "q":
                 quit();
@@ -55,7 +58,7 @@ public class Shell {
         for (File file : files) {
             if (file.isDirectory() && !file.isHidden()) {
                 System.out.println("dir : " + file.getName());
-            } else if (file.isFile() && !file.isHidden()){
+            } else if (file.isFile() && !file.isHidden()) {
                 System.out.println(file.getName());
             }
         }
@@ -85,6 +88,12 @@ public class Shell {
                 return;
             }
         }
+    }
+
+    private void mkdir(String dirName) {
+        File targetFile = new File(currentPath.toString() + "/" + dirName);
+        String result = targetFile.mkdir() ? "success" : "fail";
+        System.out.println(result);
     }
 
     private void quit() {
