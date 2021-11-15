@@ -1,5 +1,6 @@
 package hoosh;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,6 +26,9 @@ public class Shell {
             case "pwd":
                 pwd();
                 break;
+            case "ls":
+                ls();
+                break;
             case "q":
                 quit();
                 break;
@@ -37,6 +41,17 @@ public class Shell {
 
     private void pwd() {
         System.out.println(currentPath);
+    }
+
+    private void ls() {
+        File f = new File(currentPath.toString());
+        String[] files = f.list();
+        if (files == null) {
+            return;
+        }
+        for (String file : files) {
+            System.out.println(file);
+        }
     }
 
     private void quit() {
