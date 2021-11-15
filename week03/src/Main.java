@@ -1,6 +1,11 @@
+import hoosh.Shell;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        Shell hoosh = new Shell();
+        while (hoosh.isRunning) {
+            hoosh.execCommand();
+        }
     }
 }
