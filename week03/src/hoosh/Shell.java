@@ -114,7 +114,7 @@ public class Shell {
     }
 
     private void mkdir(String dirName) {
-        Path newPath = Paths.get(currentPath.toString() + "/" + dirName);
+        Path newPath = Paths.get(currentPath.toString(), dirName);
         try {
             Files.createDirectory(newPath);
             System.out.println("success");
