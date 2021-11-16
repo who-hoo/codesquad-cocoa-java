@@ -57,7 +57,7 @@ public class Shell {
         }
         for (File file : files) {
             if (file.isDirectory() && !file.isHidden()) {
-                System.out.println("dir : " + file.getName());
+                System.out.println(file.getName() + "/");
             } else if (file.isFile() && !file.isHidden()) {
                 System.out.println(file.getName());
             }
