@@ -70,8 +70,6 @@ public class Shell {
     }
 
     private void cd(String target) {
-        File currentFile = new File(currentPath.toString());
-
         switch (target) {
             case "~":
                 this.currentPath = HOME;
@@ -82,34 +80,33 @@ public class Shell {
                 System.out.println(currentPath);
                 break;
             case "..":
-                String parent = currentFile.getParent();
-                this.currentPath = Path.of(parent);
+                this.currentPath = currentPath.getParent();
                 System.out.println(currentPath);
                 break;
             default:
-                File targetFile;
+                Path targetPath;
                 if (target.charAt(0) == '/') {
-                    targetFile = new File(target);
+                    targetPath = Path.of(target);
                 } else {
-                    targetFile = new File(currentPath.toString(), target);
+                    targetPath = Path.of(currentPath.toString(), target);
                 }
 
                 if (".".equals(target)) {
                     break;
                 }
 
-                if (!targetFile.exists()) {
+                if (!Files.exists(targetPath)) {
                     System.out.println("no such file or directory: " + target);
                     break;
                 }
 
-                if (targetFile.isFile()) {
+                if (!Files.isDirectory(targetPath)) {
                     System.out.println("not a directory: " + target);
                     break;
                 }
 
-                if (targetFile.isDirectory()) {
-                    this.currentPath = Paths.get(targetFile.getPath());
+                if (Files.isDirectory(targetPath)) {
+                    this.currentPath = targetPath;
                     System.out.println(currentPath);
                     break;
                 }
