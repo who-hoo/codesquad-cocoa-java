@@ -77,6 +77,10 @@ public class Shell {
         } else {
             File targetFile = new File(currentPath.toString(), target);
 
+            if (".".equals(target)) {
+                return;
+            }
+
             if (!targetFile.exists()) {
                 System.out.println("no such file or directory: " + target);
                 return;
@@ -84,12 +88,12 @@ public class Shell {
 
             if (targetFile.isFile()) {
                 System.out.println("not a directory: " + target);
+                return;
             }
 
             if (targetFile.isDirectory()) {
                 this.currentPath = Paths.get(currentPath.toString(), target);
                 System.out.println(currentPath);
-                return;
             }
         }
     }
