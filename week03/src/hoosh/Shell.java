@@ -71,7 +71,7 @@ public class Shell {
             System.out.println(parent);
             this.currentPath = Path.of(parent);
         } else {
-            File targetFile = new File(currentPath.toString() + "/" + target);
+            File targetFile = new File(currentPath.toString(), target);
 
             if (!targetFile.exists()) {
                 System.out.println("no such file or directory: " + target);
@@ -83,7 +83,7 @@ public class Shell {
             }
 
             if (targetFile.isDirectory()) {
-                this.currentPath = Paths.get(currentPath.toString() + "/" + target);
+                this.currentPath = Paths.get(currentPath.toString(), target);
                 System.out.println(currentPath);
                 return;
             }
@@ -91,7 +91,7 @@ public class Shell {
     }
 
     private void mkdir(String dirName) {
-        File targetFile = new File(currentPath.toString() + "/" + dirName);
+        File targetFile = new File(currentPath.toString(), dirName);
         String result = targetFile.mkdir() ? "success" : "fail";
         System.out.println(result);
     }
