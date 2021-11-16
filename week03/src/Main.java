@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         Shell hoosh = new Shell();
-        while (hoosh.isRunning) {
+        while (hoosh.isRunnable()) {
             hoosh.execCommand();
         }
     }

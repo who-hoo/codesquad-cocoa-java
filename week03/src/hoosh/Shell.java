@@ -5,14 +5,18 @@ import java.nio.file.*;
 
 public class Shell {
 
-    public String[] cmds;
-    public Path currentPath;
-    public boolean isRunning;
+    private String[] cmds;
+    private Path currentPath;
+    private boolean isRunning;
 
     public Shell() {
 //        this.currentPath = Paths.get("/Users/parkjunghoo");
         this.currentPath = Paths.get("").toAbsolutePath();
         this.isRunning = true;
+    }
+
+    public boolean isRunnable() {
+        return isRunning;
     }
 
     private String getCommand() {
