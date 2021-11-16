@@ -1,6 +1,6 @@
 package hoosh;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.*;
 
 public class Shell {
@@ -117,9 +117,15 @@ public class Shell {
     }
 
     private void mkdir(String dirName) {
-        File targetFile = new File(currentPath.toString(), dirName);
-        String result = targetFile.mkdir() ? "success" : "fail";
-        System.out.println(result);
+        Path newPath = Paths.get(currentPath.toString() + "/" + dirName);
+        try {
+            Files.createDirectory(newPath);
+            System.out.println("success");
+        } catch (FileAlreadyExistsException e) {
+            System.out.println(dirName + " is already exists.");
+        } catch (IOException e) {
+            System.out.println("fail");
+        }
     }
 
     private void quit() {
