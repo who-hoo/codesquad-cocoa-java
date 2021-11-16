@@ -5,12 +5,13 @@ import java.nio.file.*;
 
 public class Shell {
 
+    private static final Path HOME = Paths.get("/Users/parkjunghoo");
+
     private String[] cmds;
     private Path currentPath;
     private boolean isRunning;
 
     public Shell() {
-//        this.currentPath = Paths.get("/Users/parkjunghoo");
         this.currentPath = Paths.get("").toAbsolutePath();
         this.isRunning = true;
     }
@@ -70,31 +71,48 @@ public class Shell {
 
     private void cd(String target) {
         File currentFile = new File(currentPath.toString());
-        if ("..".equals(target)) {
-            String parent = currentFile.getParent();
-            System.out.println(parent);
-            this.currentPath = Path.of(parent);
-        } else {
-            File targetFile = new File(currentPath.toString(), target);
 
-            if (".".equals(target)) {
-                return;
-            }
-
-            if (!targetFile.exists()) {
-                System.out.println("no such file or directory: " + target);
-                return;
-            }
-
-            if (targetFile.isFile()) {
-                System.out.println("not a directory: " + target);
-                return;
-            }
-
-            if (targetFile.isDirectory()) {
-                this.currentPath = Paths.get(currentPath.toString(), target);
+        switch (target) {
+            case "~":
+                this.currentPath = HOME;
                 System.out.println(currentPath);
-            }
+                break;
+            case "/":
+                this.currentPath = Path.of("/");
+                System.out.println(currentPath);
+                break;
+            case "..":
+                String parent = currentFile.getParent();
+                this.currentPath = Path.of(parent);
+                System.out.println(currentPath);
+                break;
+            default:
+                File targetFile;
+                if (target.charAt(0) == '/') {
+                    targetFile = new File(target);
+                } else {
+                    targetFile = new File(currentPath.toString(), target);
+                }
+
+                if (".".equals(target)) {
+                    break;
+                }
+
+                if (!targetFile.exists()) {
+                    System.out.println("no such file or directory: " + target);
+                    break;
+                }
+
+                if (targetFile.isFile()) {
+                    System.out.println("not a directory: " + target);
+                    break;
+                }
+
+                if (targetFile.isDirectory()) {
+                    this.currentPath = Paths.get(targetFile.getPath());
+                    System.out.println(currentPath);
+                    break;
+                }
         }
     }
 

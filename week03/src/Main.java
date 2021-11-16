@@ -5,7 +5,11 @@ public class Main {
     public static void main(String[] args) {
         Shell hoosh = new Shell();
         while (hoosh.isRunnable()) {
-            hoosh.execCommand();
+            try {
+                hoosh.execCommand();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
