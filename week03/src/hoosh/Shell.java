@@ -1,18 +1,23 @@
 package hoosh;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.*;
 
 public class Shell {
 
-    public String[] cmds;
-    public Path currentPath;
-    public boolean isRunning;
+    private static final Path HOME = Paths.get("/Users/parkjunghoo");
+
+    private String[] cmds;
+    private Path currentPath;
+    private boolean isRunning;
 
     public Shell() {
-//        this.currentPath = Paths.get("/Users/parkjunghoo");
         this.currentPath = Paths.get("").toAbsolutePath();
         this.isRunning = true;
+    }
+
+    public boolean isRunnable() {
+        return isRunning;
     }
 
     private String getCommand() {
@@ -57,7 +62,7 @@ public class Shell {
         }
         for (File file : files) {
             if (file.isDirectory() && !file.isHidden()) {
-                System.out.println("dir : " + file.getName());
+                System.out.println(file.getName() + "/");
             } else if (file.isFile() && !file.isHidden()) {
                 System.out.println(file.getName());
             }
@@ -65,35 +70,59 @@ public class Shell {
     }
 
     private void cd(String target) {
-        File currentFile = new File(currentPath.toString());
-        if ("..".equals(target)) {
-            String parent = currentFile.getParent();
-            System.out.println(parent);
-            this.currentPath = Path.of(parent);
-        } else {
-            File targetFile = new File(currentPath.toString() + "/" + target);
-
-            if (!targetFile.exists()) {
-                System.out.println("no such file or directory: " + target);
-                return;
-            }
-
-            if (targetFile.isFile()) {
-                System.out.println("not a directory: " + target);
-            }
-
-            if (targetFile.isDirectory()) {
-                this.currentPath = Paths.get(currentPath.toString() + "/" + target);
+        switch (target) {
+            case "~":
+                this.currentPath = HOME;
                 System.out.println(currentPath);
-                return;
-            }
+                break;
+            case "/":
+                this.currentPath = Path.of("/");
+                System.out.println(currentPath);
+                break;
+            case "..":
+                this.currentPath = currentPath.getParent();
+                System.out.println(currentPath);
+                break;
+            default:
+                Path targetPath;
+                if (target.charAt(0) == '/') {
+                    targetPath = Path.of(target);
+                } else {
+                    targetPath = Path.of(currentPath.toString(), target);
+                }
+
+                if (".".equals(target)) {
+                    break;
+                }
+
+                if (!Files.exists(targetPath)) {
+                    System.out.println("no such file or directory: " + target);
+                    break;
+                }
+
+                if (!Files.isDirectory(targetPath)) {
+                    System.out.println("not a directory: " + target);
+                    break;
+                }
+
+                if (Files.isDirectory(targetPath)) {
+                    this.currentPath = targetPath;
+                    System.out.println(currentPath);
+                    break;
+                }
         }
     }
 
     private void mkdir(String dirName) {
-        File targetFile = new File(currentPath.toString() + "/" + dirName);
-        String result = targetFile.mkdir() ? "success" : "fail";
-        System.out.println(result);
+        Path newPath = Paths.get(currentPath.toString(), dirName);
+        try {
+            Files.createDirectory(newPath);
+            System.out.println("success");
+        } catch (FileAlreadyExistsException e) {
+            System.out.println(dirName + " is already exists.");
+        } catch (IOException e) {
+            System.out.println("fail");
+        }
     }
 
     private void quit() {
