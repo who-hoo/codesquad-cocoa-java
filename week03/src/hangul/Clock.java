@@ -13,7 +13,7 @@ public class Clock {
         initClock();
     }
 
-    private void print() {
+    public void print() {
         setClock();
         for (String[] row : clockView) {
             for (String e : row) {

@@ -1,5 +1,6 @@
 package hoosh;
 
+import hangul.Clock;
 import java.io.*;
 import java.nio.file.*;
 
@@ -39,6 +40,10 @@ public class Shell {
                 break;
             case "mkdir":
                 mkdir(cmds[1]);
+                break;
+            case "hclock":
+                // TODO: 스레드를 사용해서 구현
+                new Clock().print();
                 break;
             case "q":
                 quit();
