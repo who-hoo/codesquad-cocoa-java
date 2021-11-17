@@ -132,11 +132,10 @@ public class Shell {
     private void hclock() {
         Thread t = new Thread(new Clock());
         t.start();
-        boolean clockIsRunning = true;
-        while(clockIsRunning) {
+        while(true) {
             if (Input.getString("").equals("quit")) {
-                clockIsRunning = false;
                 t.interrupt();
+                break;
             }
         }
     }
