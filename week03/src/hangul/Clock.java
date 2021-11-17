@@ -118,8 +118,11 @@ public class Clock {
 
         int units = minute % 10;
         if (units > 0) {
-            int idx = (units < 6) ? 4 : 5;
-            clockView[idx][units % 5] = GREEN_BOLD + clockView[idx][units % 5] + RESET;
+            if (units < 6) {
+                clockView[4][units] = GREEN_BOLD + clockView[4][units] + RESET;
+            } else {
+                clockView[5][units % 5] = GREEN_BOLD + clockView[5][units % 5] + RESET;
+            }
         }
     }
 
