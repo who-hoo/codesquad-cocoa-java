@@ -2,7 +2,7 @@ package hangul;
 
 import java.time.LocalTime;
 
-public class Clock {
+public class Clock implements Runnable {
 
     private static final String RESET = "\033[0m";
     private static final String GREEN_BOLD = "\033[1;32m";
@@ -13,6 +13,19 @@ public class Clock {
         initClock();
     }
 
+    @Override
+    public void run() {
+        boolean isRunning = true;
+        while (isRunning) {
+            print();
+            try {
+                Thread.sleep(1000 * 60L);
+            } catch (InterruptedException e) {
+                isRunning = false;
+            }
+        }
+    }
+
     public void print() {
         setClock();
         for (String[] row : clockView) {
@@ -21,6 +34,7 @@ public class Clock {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     private void setClock() {
@@ -123,18 +137,6 @@ public class Clock {
                 clockView[4][units] = GREEN_BOLD + clockView[4][units] + RESET;
             } else {
                 clockView[5][units % 5] = GREEN_BOLD + clockView[5][units % 5] + RESET;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        Clock clock = new Clock();
-        while (true) {
-            clock.print();
-            try {
-                Thread.sleep(1000 * 60);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

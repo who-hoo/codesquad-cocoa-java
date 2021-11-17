@@ -42,8 +42,7 @@ public class Shell {
                 mkdir(cmds[1]);
                 break;
             case "hclock":
-                // TODO: 스레드를 사용해서 구현
-                new Clock().print();
+                hclock();
                 break;
             case "q":
                 quit();
@@ -127,6 +126,18 @@ public class Shell {
             System.out.println(dirName + " is already exists.");
         } catch (IOException e) {
             System.out.println("fail");
+        }
+    }
+
+    private void hclock() {
+        Thread t = new Thread(new Clock());
+        t.start();
+        boolean clockIsRunning = true;
+        while(clockIsRunning) {
+            if (Input.getString("").equals("quit")) {
+                clockIsRunning = false;
+                t.interrupt();
+            }
         }
     }
 
