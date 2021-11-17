@@ -1,5 +1,6 @@
 package hoosh;
 
+import hangul.Clock;
 import java.io.*;
 import java.nio.file.*;
 
@@ -39,6 +40,9 @@ public class Shell {
                 break;
             case "mkdir":
                 mkdir(cmds[1]);
+                break;
+            case "hclock":
+                hclock();
                 break;
             case "q":
                 quit();
@@ -122,6 +126,17 @@ public class Shell {
             System.out.println(dirName + " is already exists.");
         } catch (IOException e) {
             System.out.println("fail");
+        }
+    }
+
+    private void hclock() {
+        Thread t = new Thread(new Clock());
+        t.start();
+        while(true) {
+            if (Input.getString("").equals("quit")) {
+                t.interrupt();
+                break;
+            }
         }
     }
 
