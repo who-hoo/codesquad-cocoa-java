@@ -24,6 +24,7 @@ public class Clock {
     }
 
     private void setClock() {
+        initClock();
         LocalTime now = LocalTime.now();
 
         if (now.equals(LocalTime.MIDNIGHT)) {
@@ -127,6 +128,14 @@ public class Clock {
     }
 
     public static void main(String[] args) {
-        new Clock().print();
+        Clock clock = new Clock();
+        while (true) {
+            clock.print();
+            try {
+                Thread.sleep(1000 * 60);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
