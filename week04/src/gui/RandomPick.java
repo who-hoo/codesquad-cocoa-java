@@ -23,18 +23,10 @@ public class RandomPick {
         f.addWindowListener(new EventHandler());
 
         f.add(nameInput);
-        nameInput.addActionListener(e -> {
-            String name = nameInput.getText();
-            membersView.append(name + "\n");
-            nameInput.setText("");
-        });
+        nameInput.addActionListener(e -> addMember());
 
         f.add(addBtn);
-        addBtn.addActionListener(e -> {
-            String name = nameInput.getText();
-            membersView.append(name + "\n");
-            nameInput.setText("");
-        });
+        addBtn.addActionListener(e -> addMember());
 
         membersView.setEditable(false);
         f.add(membersView);
@@ -64,6 +56,12 @@ public class RandomPick {
         });
 
         f.setVisible(true);
+    }
+
+    private void addMember() {
+        String name = nameInput.getText();
+        membersView.append(name + "\n");
+        nameInput.setText("");
     }
 
     public static void main(String[] args) {
