@@ -4,6 +4,7 @@ import gui.component.Inventory;
 import gui.component.RandomPickFrame;
 import gui.component.ResultDialog;
 import java.awt.*;
+import java.util.List;
 import java.util.Random;
 
 public class RandomPick {
@@ -14,6 +15,9 @@ public class RandomPick {
     private final Inventory inventory;
     private final Button resetBtn = new Button("Reset");
     private final Button pickBtn = new Button("Pick");
+    private final Button lunchBtn = new Button("점메추");
+    private final Button dinnerBtn = new Button("저메추");
+    private final Button memberBtn = new Button("BE 1조");
 
     public RandomPick() {
         randomPickFrame = new RandomPickFrame();
@@ -34,6 +38,15 @@ public class RandomPick {
 
         randomPickFrame.add(pickBtn);
         pickBtn.addActionListener(e -> showResult());
+
+        randomPickFrame.add(lunchBtn);
+        lunchBtn.addActionListener(e -> initLunchMenu());
+
+        randomPickFrame.add(dinnerBtn);
+        dinnerBtn.addActionListener(e -> initDinnerMenu());
+
+        randomPickFrame.add(memberBtn);
+        memberBtn.addActionListener(e -> initMembers());
 
         randomPickFrame.run();
     }
@@ -56,6 +69,27 @@ public class RandomPick {
         Frame frame = randomPickFrame.getFrame();
         String result = pickItem();
         new ResultDialog(frame, result).show();
+    }
+
+    private void initLunchMenu() {
+        inventory.clear();
+        List<String> lunchMenu = List
+            .of("돈까스", "제육", "순대국", "김밥", "부찌", "샐러드", "라면", "햄버거", "초밥", "굶기");
+        lunchMenu.forEach(inventory::add);
+    }
+
+    private void initDinnerMenu() {
+        inventory.clear();
+        List<String> dinnerMenu = List
+            .of("치킨", "피자", "곱창", "삼겹살", "족발", "떡볶이", "방어회", "타코", "파스타", "굶기");
+        dinnerMenu.forEach(inventory::add);
+    }
+
+    private void initMembers() {
+        inventory.clear();
+        List<String> members = List
+            .of("피오", "엠케", "타니", "미츠비", "필", "검봉", "콘다", "티모", "후", "데이브", "바트");
+        members.forEach(inventory::add);
     }
 
     public static void main(String[] args) {
