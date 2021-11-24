@@ -6,7 +6,6 @@ import java.util.stream.IntStream;
 public class Exercise14_07 {
 
     public static void main(String[] args) {
-        IntStream intStream = new Random().ints(1, 46);
-        intStream.distinct().limit(6).sorted().forEach(System.out::println);
+        new Random().ints(1, 46).distinct().limit(6).sorted().forEach(System.out::println);
     }
 }
