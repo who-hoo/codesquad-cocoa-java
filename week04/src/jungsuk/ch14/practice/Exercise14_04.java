@@ -6,17 +6,10 @@ import java.util.function.BiPredicate;
 public class Exercise14_04 {
 
     public static void main(String[] args) {
-        BiPredicate<Integer, Integer> isTotalSix = (a, b) -> a + b == 6;
-        BiConsumer<Integer, Integer> print = (a, b) -> System.out.println("[" + a + ", " + b + "]");
-        int[] dice1 = new int[]{1, 2, 3, 4, 5, 6};
-        int[] dice2 = new int[]{1, 2, 3, 4, 5, 6};
-
-        for (int d1 : dice1) {
-            for (int d2 : dice2) {
-                if (isTotalSix.test(d1, d2)) {
-                    print.accept(d1, d2);
-                }
-            }
-        }
+        Stream<Integer> die = IntStream.rangeClosed(1, 6).boxed();
+        
+        die.flatMap(i -> Stream.of(1, 2, 3, 4, 5, 6).map(i2 -> new int[] { i, 23 }))
+            .filter(iArr -> iArr[0] + iArr[1] == 6)
+            .forEach(iArr -> System.out.println(Arrays.toString(iArr)));
     }
 }
