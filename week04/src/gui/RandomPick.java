@@ -25,6 +25,13 @@ public class RandomPick {
     }
 
     public void init() {
+        List<String> lunchMenu = List
+            .of("돈까스", "제육", "순대국", "김밥", "부찌", "샐러드", "라면", "햄버거", "초밥", "굶기");
+        List<String> dinnerMenu = List
+            .of("치킨", "피자", "곱창", "삼겹살", "족발", "떡볶이", "방어회", "타코", "파스타", "굶기");
+        List<String> members = List
+            .of("피오", "엠케", "타니", "미츠비", "필", "검봉", "콘다", "티모", "후", "데이브", "바트");
+
         randomPickFrame.add(input);
         input.addActionListener(e -> addItem());
 
@@ -40,13 +47,13 @@ public class RandomPick {
         pickBtn.addActionListener(e -> showResult());
 
         randomPickFrame.add(lunchBtn);
-        lunchBtn.addActionListener(e -> initLunchMenu());
+        lunchBtn.addActionListener(e -> addItemList(lunchMenu));
 
         randomPickFrame.add(dinnerBtn);
-        dinnerBtn.addActionListener(e -> initDinnerMenu());
+        dinnerBtn.addActionListener(e -> addItemList(dinnerMenu));
 
         randomPickFrame.add(memberBtn);
-        memberBtn.addActionListener(e -> initMembers());
+        memberBtn.addActionListener(e -> addItemList(members));
 
         randomPickFrame.run();
     }
@@ -71,25 +78,9 @@ public class RandomPick {
         new ResultDialog(frame, result).show();
     }
 
-    private void initLunchMenu() {
+    private void addItemList(List<String> items) {
         inventory.clear();
-        List<String> lunchMenu = List
-            .of("돈까스", "제육", "순대국", "김밥", "부찌", "샐러드", "라면", "햄버거", "초밥", "굶기");
-        lunchMenu.forEach(inventory::add);
-    }
-
-    private void initDinnerMenu() {
-        inventory.clear();
-        List<String> dinnerMenu = List
-            .of("치킨", "피자", "곱창", "삼겹살", "족발", "떡볶이", "방어회", "타코", "파스타", "굶기");
-        dinnerMenu.forEach(inventory::add);
-    }
-
-    private void initMembers() {
-        inventory.clear();
-        List<String> members = List
-            .of("피오", "엠케", "타니", "미츠비", "필", "검봉", "콘다", "티모", "후", "데이브", "바트");
-        members.forEach(inventory::add);
+        items.forEach(inventory::add);
     }
 
     public static void main(String[] args) {
