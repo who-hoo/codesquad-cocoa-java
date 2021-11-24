@@ -31,13 +31,11 @@ public class RandomPick {
 
         randomPickFrame.add(pickBtn);
         pickBtn.addActionListener(e -> {
-            String[] members = membersView.getText().split("\n");
-            String pickedMember = members[new Random().nextInt(members.length)];
             Dialog result = new Dialog(randomPickFrame.getFrame(), "Result", true);
             result.setSize(140, 90);
             result.setLocation(50, 50);
             result.setLayout(new FlowLayout());
-            Label msg = new Label("랜덤 뽑기 결과 : " + pickedMember, Label.CENTER);
+            Label msg = new Label("랜덤 뽑기 결과 : " + pickRandomMember(), Label.CENTER);
             Button ok = new Button("OK");
             result.add(msg);
             result.add(ok);
@@ -51,6 +49,11 @@ public class RandomPick {
         });
 
         randomPickFrame.run();
+    }
+
+    private String pickRandomMember() {
+        String[] members = membersView.getText().split("\n");
+        return members[new Random().nextInt(members.length)];
     }
 
     private void addMember() {
