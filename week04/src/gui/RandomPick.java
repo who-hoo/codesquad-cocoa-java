@@ -13,6 +13,7 @@ public class RandomPick {
         f.setSize(500, 500);
         f.setResizable(false);
         f.setLayout(new FlowLayout());
+        f.addWindowListener(new EventHandler());
 
         TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
         f.add(nameInput);
