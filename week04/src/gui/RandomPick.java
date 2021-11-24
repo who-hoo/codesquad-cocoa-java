@@ -12,6 +12,7 @@ public class RandomPick {
     private final TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
     private final Button addBtn = new Button("Add");
     private final TextArea membersView = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
+    Button pickBtn = new Button("Pick");
 
     public void init() {
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -53,6 +54,8 @@ public class RandomPick {
 
         membersView.setEditable(false);
         f.add(membersView);
+
+        f.add(pickBtn);
 
         f.setVisible(true);
     }
