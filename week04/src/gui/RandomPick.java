@@ -32,8 +32,7 @@ public class RandomPick {
         resetBtn.addActionListener(e -> membersView.setText(""));
 
         randomPickFrame.add(pickBtn);
-        pickBtn.addActionListener(
-            e -> new ResultDialog(randomPickFrame.getFrame(), pickRandomMember()).show());
+        pickBtn.addActionListener(e -> showResult());
 
         randomPickFrame.run();
     }
@@ -48,6 +47,12 @@ public class RandomPick {
         if (name.equals("")) return;
         membersView.append(name + "\n");
         nameInput.setText("");
+    }
+
+    private void showResult() {
+        Frame frame = randomPickFrame.getFrame();
+        String result = pickRandomMember();
+        new ResultDialog(frame, result).show();
     }
 
     public static void main(String[] args) {
