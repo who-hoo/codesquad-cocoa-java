@@ -34,13 +34,15 @@ public class ResultDialog {
 
         Button okBtn = new Button("OK");
         dialog.add(okBtn);
-        okBtn.addActionListener(e -> {
-            dialog.setVisible(false);
-            dialog.dispose();
-        });
+        okBtn.addActionListener(e -> close());
     }
 
     public void show() {
         dialog.setVisible(true);
+    }
+
+    public void close() {
+        dialog.setVisible(false);
+        dialog.dispose();
     }
 }
