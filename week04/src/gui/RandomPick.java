@@ -18,7 +18,7 @@ public class RandomPick {
         Dimension screenSize = tk.getScreenSize();
 
         f.setLocation(screenSize.width / 2 - 150, screenSize.height / 2 - 100);
-        f.setSize(500, 500);
+        f.setSize(500, 300);
         f.setResizable(false);
         f.setLayout(new FlowLayout());
         f.addWindowListener(new EventHandler());
