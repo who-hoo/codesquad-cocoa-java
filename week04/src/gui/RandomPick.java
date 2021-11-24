@@ -1,5 +1,6 @@
 package gui;
 
+import gui.component.Inventory;
 import gui.component.RandomPickFrame;
 import gui.component.ResultDialog;
 import java.awt.*;
@@ -10,12 +11,13 @@ public class RandomPick {
     private final RandomPickFrame randomPickFrame;
     private final TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
     private final Button addBtn = new Button("Add");
-    private final TextArea membersView = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
+    private final Inventory inventory;
     private final Button resetBtn = new Button("Reset");
     private final Button pickBtn = new Button("Pick");
 
     public RandomPick() {
         randomPickFrame = new RandomPickFrame();
+        inventory = new Inventory("");
     }
 
     public void init() {
@@ -25,11 +27,10 @@ public class RandomPick {
         randomPickFrame.add(addBtn);
         addBtn.addActionListener(e -> addMember());
 
-        membersView.setEditable(false);
-        randomPickFrame.add(membersView);
+        randomPickFrame.add(inventory.getTextArea());
 
         randomPickFrame.add(resetBtn);
-        resetBtn.addActionListener(e -> membersView.setText(""));
+        resetBtn.addActionListener(e -> inventory.clear());
 
         randomPickFrame.add(pickBtn);
         pickBtn.addActionListener(e -> showResult());
@@ -38,14 +39,16 @@ public class RandomPick {
     }
 
     private String pickRandomMember() {
-        String[] members = membersView.getText().split("\n");
+        String[] members = inventory.getItems();
         return members[new Random().nextInt(members.length)];
     }
 
     private void addMember() {
-        String name = nameInput.getText();
-        if (name.equals("")) return;
-        membersView.append(name + "\n");
+        String name = nameInput.getText().trim();
+        if (name.equals("")) {
+            return;
+        }
+        inventory.add(name);
         nameInput.setText("");
     }
 
