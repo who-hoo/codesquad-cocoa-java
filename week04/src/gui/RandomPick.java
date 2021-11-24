@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RandomPick {
 
@@ -22,6 +24,11 @@ public class RandomPick {
         f.add(nameInput);
 
         f.add(addBtn);
+        addBtn.addActionListener(e -> {
+            String name = nameInput.getText();
+            membersView.append(name + "\n");
+            nameInput.setText("");
+        });
 
         membersView.setEditable(false);
         f.add(membersView);
