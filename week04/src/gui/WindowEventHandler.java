@@ -3,7 +3,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 
-public class EventHandler implements WindowListener {
+public class WindowEventHandler implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
