@@ -9,7 +9,7 @@ import java.util.Random;
 public class RandomPick {
 
     private final RandomPickFrame randomPickFrame;
-    private final TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
+    private final TextField input = new TextField("", 50);
     private final Button addBtn = new Button("Add");
     private final Inventory inventory;
     private final Button resetBtn = new Button("Reset");
@@ -21,8 +21,8 @@ public class RandomPick {
     }
 
     public void init() {
-        randomPickFrame.add(nameInput);
-        nameInput.addActionListener(e -> addItem());
+        randomPickFrame.add(input);
+        input.addActionListener(e -> addItem());
 
         randomPickFrame.add(addBtn);
         addBtn.addActionListener(e -> addItem());
@@ -44,12 +44,12 @@ public class RandomPick {
     }
 
     private void addItem() {
-        String name = nameInput.getText().trim();
+        String name = input.getText().trim();
         if (name.equals("")) {
             return;
         }
         inventory.add(name);
-        nameInput.setText("");
+        input.setText("");
     }
 
     private void showResult() {
