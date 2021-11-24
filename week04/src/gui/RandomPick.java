@@ -1,5 +1,7 @@
 package gui;
 
+import gui.component.RandomPickFrame;
+import gui.component.ResultDialog;
 import java.awt.*;
 import java.util.Random;
 

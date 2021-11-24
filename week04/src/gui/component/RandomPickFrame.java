@@ -1,5 +1,6 @@
-package gui;
+package gui.component;
 
+import gui.WindowEventHandler;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Frame;
