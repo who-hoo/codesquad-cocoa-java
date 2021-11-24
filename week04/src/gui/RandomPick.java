@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Random;
 
 public class RandomPick {
@@ -24,24 +22,10 @@ public class RandomPick {
         f.addWindowListener(new EventHandler());
 
         f.add(nameInput);
-        nameInput.addKeyListener(new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String name = nameInput.getText();
-                    membersView.append(name + "\n");
-                    nameInput.setText("");
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
+        nameInput.addActionListener(e -> {
+            String name = nameInput.getText();
+            membersView.append(name + "\n");
+            nameInput.setText("");
         });
 
         f.add(addBtn);
