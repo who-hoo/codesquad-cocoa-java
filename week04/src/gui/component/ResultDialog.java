@@ -9,7 +9,7 @@ import java.awt.LayoutManager;
 
 public class ResultDialog {
 
-    private static final String TITLE = "Random Pick Result";
+    private static final String TITLE = "Result";
     private static final boolean IS_MODAL = true;
     private static final int WIDTH = 140;
     private static final int HEIGHT = 90;
