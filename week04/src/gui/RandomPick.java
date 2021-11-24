@@ -22,10 +22,10 @@ public class RandomPick {
 
     public void init() {
         randomPickFrame.add(nameInput);
-        nameInput.addActionListener(e -> addMember());
+        nameInput.addActionListener(e -> addItem());
 
         randomPickFrame.add(addBtn);
-        addBtn.addActionListener(e -> addMember());
+        addBtn.addActionListener(e -> addItem());
 
         randomPickFrame.add(inventory.getTextArea());
 
@@ -38,12 +38,12 @@ public class RandomPick {
         randomPickFrame.run();
     }
 
-    private String pickRandomMember() {
+    private String pickItem() {
         String[] members = inventory.getItems();
         return members[new Random().nextInt(members.length)];
     }
 
-    private void addMember() {
+    private void addItem() {
         String name = nameInput.getText().trim();
         if (name.equals("")) {
             return;
@@ -54,7 +54,7 @@ public class RandomPick {
 
     private void showResult() {
         Frame frame = randomPickFrame.getFrame();
-        String result = pickRandomMember();
+        String result = pickItem();
         new ResultDialog(frame, result).show();
     }
 
