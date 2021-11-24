@@ -9,6 +9,7 @@ public class RandomPick {
     private final TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
     private final Button addBtn = new Button("Add");
     private final TextArea membersView = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
+    private final Button resetBtn = new Button("Reset");
     private final Button pickBtn = new Button("Pick");
 
     public void init() {
@@ -37,6 +38,9 @@ public class RandomPick {
 
         membersView.setEditable(false);
         f.add(membersView);
+
+        f.add(resetBtn);
+        resetBtn.addActionListener(e -> membersView.setText(""));
 
         f.add(pickBtn);
         pickBtn.addActionListener(e -> {
