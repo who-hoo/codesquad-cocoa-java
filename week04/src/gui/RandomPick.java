@@ -30,23 +30,8 @@ public class RandomPick {
         resetBtn.addActionListener(e -> membersView.setText(""));
 
         randomPickFrame.add(pickBtn);
-        pickBtn.addActionListener(e -> {
-            Dialog result = new Dialog(randomPickFrame.getFrame(), "Result", true);
-            result.setSize(140, 90);
-            result.setLocation(50, 50);
-            result.setLayout(new FlowLayout());
-            Label msg = new Label("랜덤 뽑기 결과 : " + pickRandomMember(), Label.CENTER);
-            Button ok = new Button("OK");
-            result.add(msg);
-            result.add(ok);
-
-            ok.addActionListener(okEvent -> {
-                result.setVisible(false);
-                result.dispose();
-            });
-
-            result.setVisible(true);
-        });
+        pickBtn.addActionListener(
+            e -> new ResultDialog(randomPickFrame.getFrame(), pickRandomMember()).show());
 
         randomPickFrame.run();
     }
