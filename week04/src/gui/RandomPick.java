@@ -45,6 +45,7 @@ public class RandomPick {
 
     private void addMember() {
         String name = nameInput.getText();
+        if (name.equals("")) return;
         membersView.append(name + "\n");
         nameInput.setText("");
     }
