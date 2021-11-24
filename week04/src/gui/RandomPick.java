@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class RandomPick {
 
@@ -56,6 +57,25 @@ public class RandomPick {
         f.add(membersView);
 
         f.add(pickBtn);
+        pickBtn.addActionListener(e -> {
+            String[] members = membersView.getText().split("\n");
+            String pickedMember = members[new Random().nextInt(members.length)];
+            Dialog result = new Dialog(f, "Result", true);
+            result.setSize(140, 90);
+            result.setLocation(50, 50);
+            result.setLayout(new FlowLayout());
+            Label msg = new Label("랜덤 뽑기 결과 : " + pickedMember, Label.CENTER);
+            Button ok = new Button("OK");
+            result.add(msg);
+            result.add(ok);
+
+            ok.addActionListener(okEvent -> {
+                result.setVisible(false);
+                result.dispose();
+            });
+
+            result.setVisible(true);
+        });
 
         f.setVisible(true);
     }
