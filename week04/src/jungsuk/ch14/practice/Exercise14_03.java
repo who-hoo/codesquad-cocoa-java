@@ -8,7 +8,7 @@ public class Exercise14_03 {
          * (    ) f; // 함수형 인터페이스 타입의 참조변수 f를 선언.
          * f = (int a, int b) -> a > b ? a : b;
          *
-         * => BinaryOperator, 두 개의 매개변수와 리턴타입이 같다.
+         * => IntBinaryOperator, 두 개의 매개변수와 리턴타입이 같다. + 기본형 int 이므로 IntBinaryOperator
          */
     }
 }
