@@ -5,40 +5,35 @@ import java.util.Random;
 
 public class RandomPick {
 
-    private final Frame f = new Frame("Random Pick");
+    private final RandomPickFrame randomPickFrame;
     private final TextField nameInput = new TextField("코코아 멤버의 이름을 입력하세요.", 50);
     private final Button addBtn = new Button("Add");
     private final TextArea membersView = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
     private final Button resetBtn = new Button("Reset");
     private final Button pickBtn = new Button("Pick");
 
+    public RandomPick() {
+        randomPickFrame = new RandomPickFrame();
+    }
+
     public void init() {
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-
-        f.setLocation(screenSize.width / 2 - 150, screenSize.height / 2 - 100);
-        f.setSize(500, 300);
-        f.setResizable(false);
-        f.setLayout(new FlowLayout());
-        f.addWindowListener(new EventHandler());
-
-        f.add(nameInput);
+        randomPickFrame.add(nameInput);
         nameInput.addActionListener(e -> addMember());
 
-        f.add(addBtn);
+        randomPickFrame.add(addBtn);
         addBtn.addActionListener(e -> addMember());
 
         membersView.setEditable(false);
-        f.add(membersView);
+        randomPickFrame.add(membersView);
 
-        f.add(resetBtn);
+        randomPickFrame.add(resetBtn);
         resetBtn.addActionListener(e -> membersView.setText(""));
 
-        f.add(pickBtn);
+        randomPickFrame.add(pickBtn);
         pickBtn.addActionListener(e -> {
             String[] members = membersView.getText().split("\n");
             String pickedMember = members[new Random().nextInt(members.length)];
-            Dialog result = new Dialog(f, "Result", true);
+            Dialog result = new Dialog(randomPickFrame.getFrame(), "Result", true);
             result.setSize(140, 90);
             result.setLocation(50, 50);
             result.setLayout(new FlowLayout());
@@ -55,7 +50,7 @@ public class RandomPick {
             result.setVisible(true);
         });
 
-        f.setVisible(true);
+        randomPickFrame.run();
     }
 
     private void addMember() {
